@@ -2,11 +2,12 @@ class_name PlayerModel
 extends Node3D
 ## Procedural idle/walk animation for the primitive chibi model.
 ##
-## Presentation only. The rest of the game talks to it through two calls:
+## Presentation only. The rest of the game talks to it through three calls:
 ##   set_locomotion(speed_ratio)  0 = standing, 1 = full walk speed
 ##   pulse(strength)              small squash "pop" (start/stop, future hits)
+##   play_cast()                  quick casting gesture (attacks / skills)
 ## A future rigged GLB model can replace this scene as long as it offers the
-## same two methods, so nothing outside the Visual node has to change.
+## same methods, so nothing outside the Visual node has to change.
 ##
 ## Cost: a handful of rotations per physics tick, no AnimationTree, no skinning.
 
@@ -28,12 +29,16 @@ extends Node3D
 @export_group("Accents")
 @export var pulse_decay: float = 5.0
 @export var gem_spin_speed: float = 1.4
+## Casting gesture: right arm thrusts forward for this long.
+@export var cast_time: float = 0.22
+@export var cast_arm_degrees: float = 95.0
 
 var _target_walk: float = 0.0
 var _walk: float = 0.0
 var _phase: float = 0.0
 var _time: float = 0.0
 var _pulse: float = 0.0
+var _cast: float = 0.0
 
 @onready var _body: Node3D = $Body
 @onready var _torso: Node3D = $Body/Torso
@@ -54,11 +59,17 @@ func pulse(strength: float = 1.0) -> void:
 	_pulse = maxf(_pulse, strength)
 
 
+func play_cast() -> void:
+	_cast = 1.0
+	pulse(0.35)
+
+
 func _physics_process(delta: float) -> void:
 	_time += delta
 	_walk = lerpf(_walk, _target_walk, 1.0 - exp(-blend_sharpness * delta))
 	_phase = fmod(_phase + delta * TAU * stride_frequency * _walk, TAU)
 	_pulse = move_toward(_pulse, 0.0, delta * pulse_decay)
+	_cast = move_toward(_cast, 0.0, delta / maxf(cast_time, 0.01))
 
 	var idle := 1.0 - _walk
 	var swing := sin(_phase)
@@ -71,6 +82,8 @@ func _physics_process(delta: float) -> void:
 	var arm_idle := sin(_time * breath_frequency) * 0.05 * idle
 	_arm_left.rotation.x = -arm + arm_idle
 	_arm_right.rotation.x = arm + arm_idle
+	# Cast: fast thrust forward (+X rotation swings the arm toward -Z), eased back.
+	_arm_right.rotation.x = lerpf(_arm_right.rotation.x, deg_to_rad(cast_arm_degrees), sin(_cast * PI * 0.5))
 
 	# Two bounces per stride, small forward lean while walking.
 	_body.position.y = absf(swing) * body_bob_height * _walk

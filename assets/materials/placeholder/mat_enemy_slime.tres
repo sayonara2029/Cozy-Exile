@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "mat_enemy_slime"
+albedo_color = Color(0.62, 0.28, 0.66, 1)
+roughness = 1.0
+metallic_specular = 0.2
+rim_enabled = true
+rim = 0.35
+rim_tint = 0.5

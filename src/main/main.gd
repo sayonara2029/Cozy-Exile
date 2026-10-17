@@ -30,3 +30,9 @@ func _register_debug_watches() -> void:
 		return "%.2f m/s" % player.movement.get_horizontal_speed(player))
 	debug_overlay.watch("Zoom", func() -> String:
 		return "%.1f m" % camera_rig.target_distance)
+	debug_overlay.watch("Player HP", func() -> String:
+		return "%d / %d" % [roundi(player.health.current_health), roundi(player.health.max_health)])
+	debug_overlay.watch("Enemies", func() -> int:
+		return get_tree().get_node_count_in_group(&"enemies"))
+	debug_overlay.watch("Projectiles", func() -> int:
+		return get_tree().get_node_count_in_group(&"projectiles"))

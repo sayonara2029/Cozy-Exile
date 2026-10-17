@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/vfx/impact_puff/impact_puff.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_magic_bolt.tres" id="2_r"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_puff"]
+material = ExtResource("2_r")
+radius = 0.3
+height = 0.6
+radial_segments = 8
+rings = 4
+
+[node name="ImpactPuff" type="MeshInstance3D"]
+script = ExtResource("1_r")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_puff")
