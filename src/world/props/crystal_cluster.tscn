@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_crystal.tres" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_stone_dark.tres" id="2_r"]
+
+[sub_resource type="SphereMesh" id="Mesh_crystal"]
+material = ExtResource("1_r")
+radius = 0.25
+height = 0.5
+radial_segments = 4
+rings = 2
+
+[sub_resource type="SphereMesh" id="Mesh_base"]
+material = ExtResource("2_r")
+radius = 0.5
+height = 0.4
+radial_segments = 6
+rings = 2
+is_hemisphere = true
+
+[sub_resource type="CylinderShape3D" id="Shape_crystals"]
+height = 1.4
+radius = 0.45
+
+[node name="CrystalCluster" type="StaticBody3D"]
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("Mesh_base")
+
+[node name="Shard0" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.984808, 0, 0.173648, 0, 2.4, 0, -0.173648, 0, 0.984808, 0, 0.55, 0)
+cast_shadow = 0
+mesh = SubResource("Mesh_crystal")
+
+[node name="Shard1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.45297, 0.679849, 0.443116, -0.291338, 1.42806, -0.121554, -0.447147, -0.241752, 0.528085, 0.25, 0.35, 0.1)
+cast_shadow = 0
+mesh = SubResource("Mesh_crystal")
+
+[node name="Shard2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.174281, -0.37407, 0.604856, 0.241125, 1.37724, 0.0904625, -0.577914, 0.461822, 0.22015, -0.22, 0.32, -0.08)
+cast_shadow = 0
+mesh = SubResource("Mesh_crystal")
+
+[node name="Shard3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.482963, -0.12032, 0.117285, 0, 0.996939, 0.211309, -0.12941, -0.44904, 0.437713, 0.02, 0.25, 0.28)
+cast_shadow = 0
+mesh = SubResource("Mesh_crystal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("Shape_crystals")

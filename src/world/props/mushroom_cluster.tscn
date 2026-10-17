@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_mushroom_stem.tres" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_mushroom_cap.tres" id="2_r"]
+
+[sub_resource type="CylinderMesh" id="Mesh_stem"]
+material = ExtResource("1_r")
+top_radius = 0.05
+bottom_radius = 0.07
+height = 0.22
+radial_segments = 6
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_cap"]
+material = ExtResource("2_r")
+radius = 0.16
+height = 0.16
+radial_segments = 8
+rings = 3
+is_hemisphere = true
+
+[node name="MushroomCluster" type="Node3D"]
+
+[node name="Stem0" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
+cast_shadow = 0
+mesh = SubResource("Mesh_stem")
+
+[node name="Cap0" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.990268, 0.139173, 0, -0.139173, 0.990268, 0, 0, 0, 1, 0, 0.21, 0)
+cast_shadow = 0
+mesh = SubResource("Mesh_cap")
+
+[node name="Stem1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.22, 0.077, 0.12)
+cast_shadow = 0
+mesh = SubResource("Mesh_stem")
+
+[node name="Cap1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.22, 0.147, 0.12)
+cast_shadow = 0
+mesh = SubResource("Mesh_cap")
+
+[node name="Stem2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, -0.15, 0.0605, 0.18)
+cast_shadow = 0
+mesh = SubResource("Mesh_stem")
+
+[node name="Cap2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.544647, -0.0765452, 0, 0.0765452, 0.544647, 0, 0, 0, 0.55, -0.15, 0.1155, 0.18)
+cast_shadow = 0
+mesh = SubResource("Mesh_cap")

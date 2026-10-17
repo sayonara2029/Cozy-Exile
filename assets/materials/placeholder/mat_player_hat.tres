@@ -1,7 +1,13 @@
 [gd_resource type="StandardMaterial3D" format=3]
 
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_player_outline.tres" id="1_outline"]
+
 [resource]
 resource_name = "mat_player_hat"
-albedo_color = Color(0.46, 0.63, 0.68, 1)
+albedo_color = Color(0.47, 0.31, 0.6, 1)
 roughness = 1.0
 metallic_specular = 0.2
+rim_enabled = true
+rim = 0.3
+rim_tint = 0.7
+next_pass = ExtResource("1_outline")

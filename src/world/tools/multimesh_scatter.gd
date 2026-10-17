@@ -36,6 +36,12 @@ extends MultiMeshInstance3D
 	set(value):
 		palette = value
 		_rebuild_if_ready()
+## Optional empty rectangle in the centre (e.g. a ring of background trees
+## around the playable area). Zero = no hole.
+@export var hole_size: Vector2 = Vector2.ZERO:
+	set(value):
+		hole_size = value
+		_rebuild_if_ready()
 ## Keep-out zones in local space: x, z = centre, y = radius (paths, ponds, houses).
 @export var exclusion_circles: PackedVector3Array = []:
 	set(value):
@@ -67,7 +73,7 @@ func rebuild() -> void:
 		attempts += 1
 		var x := rng.randf_range(-half.x, half.x)
 		var z := rng.randf_range(-half.y, half.y)
-		if _is_excluded(x, z):
+		if _is_in_hole(x, z) or _is_excluded(x, z):
 			continue
 		var s := rng.randf_range(scale_range.x, scale_range.y)
 		var basis := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s, s))
@@ -83,6 +89,10 @@ func rebuild() -> void:
 		if mm.use_colors:
 			mm.set_instance_color(i, palette[rng.randi() % palette.size()])
 	multimesh = mm
+
+
+func _is_in_hole(x: float, z: float) -> bool:
+	return absf(x) < hole_size.x * 0.5 and absf(z) < hole_size.y * 0.5
 
 
 func _is_excluded(x: float, z: float) -> bool:

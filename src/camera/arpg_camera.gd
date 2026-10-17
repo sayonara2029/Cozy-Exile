@@ -10,18 +10,22 @@ extends Node3D
 signal zoom_changed(distance: float)
 
 @export var target: Node3D
-@export_range(-85.0, -15.0, 0.5) var pitch_degrees: float = -52.0
 @export var yaw_degrees: float = 45.0
+## Pitch when fully zoomed in (a little flatter: shows the character more).
+@export_range(-85.0, -15.0, 0.5) var pitch_near_degrees: float = -44.0
+## Pitch when fully zoomed out (steeper: shows more of the battlefield).
+@export_range(-85.0, -15.0, 0.5) var pitch_far_degrees: float = -56.0
 ## Aim point above the target's origin (roughly chest height).
-@export var look_offset: Vector3 = Vector3(0.0, 0.8, 0.0)
-@export var follow_sharpness: float = 9.0
+@export var look_offset: Vector3 = Vector3(0.0, 0.7, 0.0)
+## Higher = tighter follow. Exponential smoothing never overshoots.
+@export var follow_sharpness: float = 12.0
 
 @export_group("Zoom")
-@export var min_distance: float = 7.0
-@export var max_distance: float = 26.0
-@export var start_distance: float = 15.0
-@export var zoom_step: float = 1.5
-@export var zoom_sharpness: float = 10.0
+@export var min_distance: float = 6.5
+@export var max_distance: float = 20.0
+@export var start_distance: float = 12.0
+@export var zoom_step: float = 1.25
+@export var zoom_sharpness: float = 11.0
 
 var target_distance: float
 var current_distance: float
@@ -32,10 +36,9 @@ var current_distance: float
 func _ready() -> void:
 	# The rig is moved manually in _process; never interpolate it.
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-	rotation_degrees = Vector3(pitch_degrees, yaw_degrees, 0.0)
 	target_distance = clampf(start_distance, min_distance, max_distance)
 	current_distance = target_distance
-	camera.position = Vector3(0.0, 0.0, current_distance)
+	_apply_distance()
 	snap_to_target()
 
 
@@ -54,7 +57,7 @@ func _process(delta: float) -> void:
 		global_position = global_position.lerp(goal, 1.0 - exp(-follow_sharpness * delta))
 
 	current_distance = lerpf(current_distance, target_distance, 1.0 - exp(-zoom_sharpness * delta))
-	camera.position.z = current_distance
+	_apply_distance()
 
 
 func set_zoom(distance: float) -> void:
@@ -69,6 +72,14 @@ func set_zoom(distance: float) -> void:
 func snap_to_target() -> void:
 	if is_instance_valid(target):
 		global_position = _target_focus()
+
+
+## Places the camera on the rig's local +Z and blends pitch with zoom.
+func _apply_distance() -> void:
+	var t := inverse_lerp(min_distance, max_distance, current_distance)
+	var pitch := lerpf(pitch_near_degrees, pitch_far_degrees, clampf(t, 0.0, 1.0))
+	rotation_degrees = Vector3(pitch, yaw_degrees, 0.0)
+	camera.position = Vector3(0.0, 0.0, current_distance)
 
 
 func _target_focus() -> Vector3:

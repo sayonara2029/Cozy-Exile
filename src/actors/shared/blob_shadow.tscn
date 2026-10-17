@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_blob"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.18, 0.13, 0.24, 0.42, 0.18, 0.13, 0.24, 0.22, 0.18, 0.13, 0.24, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_blob"]
+gradient = SubResource("Gradient_blob")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Material_blob"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_blob")
+
+[sub_resource type="QuadMesh" id="QuadMesh_blob"]
+material = SubResource("Material_blob")
+size = Vector2(1.1, 1.1)
+orientation = 1
+
+[node name="BlobShadow" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_blob")
