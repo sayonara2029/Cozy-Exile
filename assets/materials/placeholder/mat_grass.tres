@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "mat_grass"
+albedo_color = Color(0.56, 0.79, 0.47, 1)
+roughness = 1.0
+metallic_specular = 0.2

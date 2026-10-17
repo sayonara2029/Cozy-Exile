@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "mat_water"
+albedo_color = Color(0.48, 0.74, 0.9, 1)
+roughness = 1.0
+metallic_specular = 0.2

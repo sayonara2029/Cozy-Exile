@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "mat_trunk"
+albedo_color = Color(0.56, 0.39, 0.27, 1)
+roughness = 1.0
+metallic_specular = 0.2

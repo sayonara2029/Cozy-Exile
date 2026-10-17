@@ -1,0 +1,354 @@
+[gd_scene format=3]
+
+[ext_resource type="Environment" path="res://src/world/environment/cozy_environment.tres" id="1_env"]
+[ext_resource type="PackedScene" path="res://src/world/props/tree_placeholder.tscn" id="2_tree"]
+[ext_resource type="PackedScene" path="res://src/world/props/rock_placeholder.tscn" id="3_rock"]
+[ext_resource type="PackedScene" path="res://src/world/props/house_placeholder.tscn" id="4_house"]
+[ext_resource type="PackedScene" path="res://src/world/props/lantern_placeholder.tscn" id="5_lantern"]
+[ext_resource type="Script" path="res://src/world/tools/multimesh_scatter.gd" id="6_scatter"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_grass.tres" id="7_grass"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_path.tres" id="8_path"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_water.tres" id="9_water"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_scatter_tint.tres" id="10_tint"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_blossom.tres" id="11_blossom"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood.tres" id="12_wood"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+material = ExtResource("7_grass")
+size = Vector3(60.0, 1, 60.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(60.0, 1, 60.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_path"]
+material = ExtResource("8_path")
+size = Vector3(2.4, 0.04, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pond"]
+material = ExtResource("9_water")
+top_radius = 3.5
+bottom_radius = 3.5
+height = 0.04
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pond_rim"]
+material = ExtResource("8_path")
+top_radius = 3.9
+bottom_radius = 3.9
+height = 0.03
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pond"]
+height = 1.0
+radius = 3.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+size = Vector3(60.0, 4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fence"]
+material = ExtResource("12_wood")
+size = Vector3(0.18, 0.8, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rail"]
+material = ExtResource("12_wood")
+size = Vector3(2.0, 0.1, 0.08)
+
+[sub_resource type="PrismMesh" id="PrismMesh_tuft"]
+material = ExtResource("10_tint")
+size = Vector3(0.18, 0.32, 0.12)
+
+[sub_resource type="SphereMesh" id="SphereMesh_flower"]
+material = ExtResource("10_tint")
+radius = 0.09
+height = 0.16
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_blossom_crown"]
+material = ExtResource("11_blossom")
+radius = 1.0
+height = 1.7
+radial_segments = 8
+rings = 4
+
+[node name="TestGarden" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.469846, 0.32899, 0, 0.573576, 0.819152, -0.573576, -0.67101, 0.469846, 0, 12, 0)
+light_color = Color(1, 0.95, 0.86, 1)
+light_energy = 0.35
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_blur = 1.5
+directional_shadow_mode = 1
+directional_shadow_max_distance = 45.0
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 4)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_ground")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="Bounds" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="Wall0" type="CollisionShape3D" parent="Bounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -30)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Wall1" type="CollisionShape3D" parent="Bounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 30)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Wall2" type="CollisionShape3D" parent="Bounds"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -30, 2, 0)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Wall3" type="CollisionShape3D" parent="Bounds"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 30, 2, 0)
+shape = SubResource("BoxShape3D_wall")
+
+[node name="Paths" type="Node3D" parent="."]
+
+[node name="Segment0" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(0, 0, -1.7, 0, 1, 0, 2.85, 0, 0, 0, 0.02, 7)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment1" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(-0.485307, 0, -1.66699, 0, 1, 0, 2.42654, 0, -0.333397, 0.5, 0.02, 1.5)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment2" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(-0.989858, 0, -1.52053, 0, 1, 0, 1.97972, 0, -0.760263, 2, 0.02, -3)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment3" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(-1.49749, 0, -1.20208, 0, 1, 0, 1.49749, 0, -1.20208, 4.5, 0.02, -6.5)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment4" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(-1.08082, 0, -1.20208, 0, 1, 0, 1.08082, 0, -1.20208, 7, 0.02, -9)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment5" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(2.00622, 0, -0.412311, 0, 1, 0, 0.501554, 0, 1.64924, -1, 0.02, -1.5)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment6" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(2.00622, 0, 0.412311, 0, 1, 0, -0.501554, 0, 1.64924, -5, 0.02, -1.5)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Segment7" type="MeshInstance3D" parent="Paths"]
+transform = Transform3D(1.54122, 0, 0.94299, 0, 1, 0, -1.02748, 0, 1.41449, -8.5, 0.02, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_path")
+
+[node name="Pond" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 3)
+collision_mask = 0
+
+[node name="Rim" type="MeshInstance3D" parent="Pond"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_pond_rim")
+
+[node name="Water" type="MeshInstance3D" parent="Pond"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_pond")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pond"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_pond")
+
+[node name="House" parent="." instance=ExtResource("4_house")]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 9, 0, -13)
+
+[node name="Lanterns" type="Node3D" parent="."]
+
+[node name="Lantern0" parent="Lanterns" instance=ExtResource("5_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 6)
+
+[node name="Lantern1" parent="Lanterns" instance=ExtResource("5_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, 1)
+
+[node name="Lantern2" parent="Lanterns" instance=ExtResource("5_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, -4.5)
+
+[node name="Lantern3" parent="Lanterns" instance=ExtResource("5_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8, 0, -8.2)
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="Tree0" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, -6, 0, -8)
+
+[node name="Tree1" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.957556, 0, 0.803485, 0, 1.25, 0, -0.803485, 0, 0.957556, -9, 0, -12)
+
+[node name="Tree2" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.307818, 0, 0.845723, 0, 0.9, 0, -0.845723, 0, 0.307818, -14, 0, -6)
+
+[node name="Tree3" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.2557, 0, 0.336465, 0, 1.3, 0, -0.336465, 0, 1.2557, -18, 0, -14)
+
+[node name="Tree4" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.191013, 0, 1.08329, 0, 1.1, 0, -1.08329, 0, 0.191013, 4, 0, -16)
+
+[node name="Tree5" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, 14, 0, -6)
+
+[node name="Tree6" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.867763, 0, 1.03416, 0, 1.35, 0, -1.03416, 0, 0.867763, 17, 0, -14)
+
+[node name="Tree7" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.04225, 0, 0.486011, 0, 1.15, 0, -0.486011, 0, 1.04225, 19, 0, 2)
+
+[node name="Tree8" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.475, 0, 0.822724, 0, 0.95, 0, -0.822724, 0, 0.475, 14, 0, 9)
+
+[node name="Tree9" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.03923, 0, 0.6, 0, 1.2, 0, -0.6, 0, 1.03923, -5, 0, 12)
+
+[node name="Tree10" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.27176, 0, 1.01422, 0, 1.05, 0, -1.01422, 0, 0.27176, -16, 0, 12)
+
+[node name="Tree11" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.2216, 0, 0.444626, 0, 1.3, 0, -0.444626, 0, 1.2216, 6, 0, 14)
+
+[node name="Tree12" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.848528, 0, 0.848528, 0, 1.2, 0, -0.848528, 0, 0.848528, -22, 0, 0)
+
+[node name="Tree13" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.08329, 0, 0.191013, 0, 1.1, 0, -0.191013, 0, 1.08329, 22, 0, -20)
+
+[node name="Tree14" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(1.0649, 0, 0.745649, 0, 1.3, 0, -0.745649, 0, 1.0649, -24, 0, -22)
+
+[node name="Tree15" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.688292, 0, 0.982982, 0, 1.2, 0, -0.982982, 0, 0.688292, 24, 0, 16)
+
+[node name="Tree16" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, 0.996195, -8, 0, 22)
+
+[node name="Tree17" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.108945, 0, 1.24524, 0, 1.25, 0, -1.24524, 0, 0.108945, 10, 0, 22)
+
+[node name="BlossomTree0" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -3, 0, -5)
+
+[node name="Crown" parent="Trees/BlossomTree0" index="1"]
+mesh = SubResource("SphereMesh_blossom_crown")
+
+[node name="BlossomTree1" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.766044, 0, 0.642788, 0, 1, 0, -0.642788, 0, 0.766044, 11, 0, 4)
+
+[node name="Crown" parent="Trees/BlossomTree1" index="1"]
+mesh = SubResource("SphereMesh_blossom_crown")
+
+[node name="BlossomTree2" parent="Trees" instance=ExtResource("2_tree")]
+transform = Transform3D(0.147601, 0, 0.837087, 0, 0.85, 0, -0.837087, 0, 0.147601, -11, 0, 8)
+
+[node name="Crown" parent="Trees/BlossomTree2" index="1"]
+mesh = SubResource("SphereMesh_blossom_crown")
+
+[node name="Rocks" type="Node3D" parent="."]
+
+[node name="Rock0" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -8.5, 0, 0.2)
+
+[node name="Rock1" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(0.958363, 0, 0.722178, 0, 1.2, 0, -0.722178, 0, 0.958363, -15, 0, 5.5)
+
+[node name="Rock2" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(0.192946, 0, 0.672883, 0, 0.7, 0, -0.672883, 0, 0.192946, -10, 0, 6.5)
+
+[node name="Rock3" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(-0.286694, 0, 0.746864, 0, 0.8, 0, -0.746864, 0, -0.286694, 5, 0, 3)
+
+[node name="Rock4" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(-1.18727, 0, 0.741887, 0, 1.4, 0, -0.741887, 0, -1.18727, 13, 0, -2)
+
+[node name="Rock5" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(-1.09581, 0, -0.0958713, 0, 1.1, 0, 0.0958713, 0, -1.09581, -4, 0, -14)
+
+[node name="Rock6" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(-0.66883, 0, -0.602218, 0, 0.9, 0, 0.602218, 0, -0.66883, 18, 0, 8)
+
+[node name="Rock7" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(-0.286213, 0, -1.47244, 0, 1.5, 0, 1.47244, 0, -0.286213, -20, 0, 6)
+
+[node name="Rock8" parent="Rocks" instance=ExtResource("3_rock")]
+transform = Transform3D(0.438371, 0, -0.898794, 0, 1, 0, 0.898794, 0, 0.438371, 2, 0, 18)
+
+[node name="Fence" type="Node3D" parent="."]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 9, 0, -13)
+
+[node name="Post0" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.4, 3.6)
+mesh = SubResource("BoxMesh_fence")
+
+[node name="Post1" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.4, 3.6)
+mesh = SubResource("BoxMesh_fence")
+
+[node name="Post2" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.4, 3.6)
+mesh = SubResource("BoxMesh_fence")
+
+[node name="Post3" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.4, 3.6)
+mesh = SubResource("BoxMesh_fence")
+
+[node name="Rail0" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.55, 3.6)
+mesh = SubResource("BoxMesh_rail")
+
+[node name="Rail1" type="MeshInstance3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 3.6)
+mesh = SubResource("BoxMesh_rail")
+
+[node name="GrassTufts" type="MultiMeshInstance3D" parent="."]
+cast_shadow = 0
+script = ExtResource("6_scatter")
+mesh = SubResource("PrismMesh_tuft")
+count = 900
+area_size = Vector2(56, 56)
+random_seed = 7
+scale_range = Vector2(0.7, 1.5)
+y_offset = 0.15
+palette = PackedColorArray(0.42, 0.68, 0.36, 1, 0.5, 0.75, 0.4, 1, 0.38, 0.62, 0.34, 1, 0.6, 0.8, 0.45, 1)
+exclusion_circles = PackedVector3Array(-12, 4.4, 3, 9, 3, -13, 0, 1.6, 7, 0.5, 1.6, 1.5, 2, 1.6, -3, 4.5, 1.6, -6.5, -3, 1.6, -1.5, -7, 1.6, -1)
+
+[node name="Flowers" type="MultiMeshInstance3D" parent="."]
+cast_shadow = 0
+script = ExtResource("6_scatter")
+mesh = SubResource("SphereMesh_flower")
+count = 450
+area_size = Vector2(50, 50)
+random_seed = 21
+scale_range = Vector2(0.8, 1.3)
+y_offset = 0.12
+palette = PackedColorArray(1, 0.72, 0.82, 1, 1, 0.92, 0.55, 1, 0.98, 0.98, 1, 1, 0.78, 0.7, 1, 1, 1, 0.62, 0.55, 1)
+exclusion_circles = PackedVector3Array(-12, 4.4, 3, 9, 3, -13, 0, 1.6, 7, 0.5, 1.6, 1.5, 2, 1.6, -3, 4.5, 1.6, -6.5, -3, 1.6, -1.5, -7, 1.6, -1)
