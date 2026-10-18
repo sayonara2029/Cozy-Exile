@@ -46,6 +46,12 @@ func move(body: CharacterBody3D, direction: Vector3, delta: float) -> void:
 	_update_moving_state(body)
 
 
+## Instant horizontal push (knock-back). It fades out through the normal
+## acceleration / deceleration of the next move() calls.
+func apply_impulse(body: CharacterBody3D, impulse: Vector3) -> void:
+	body.velocity += Vector3(impulse.x, 0.0, impulse.z)
+
+
 func get_horizontal_speed(body: CharacterBody3D) -> float:
 	return Vector2(body.velocity.x, body.velocity.z).length()
 

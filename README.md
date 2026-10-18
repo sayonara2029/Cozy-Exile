@@ -3,10 +3,40 @@
 Cute, cozy, stylized low-poly **3D isometric Action RPG** สำหรับ Windows PC
 Single-player, offline · Godot 4.7 · GDScript · Compatibility renderer
 
-> สถานะ: **M03 — Combat Foundation** (ยิงเวท → ชน → damage → HP → ตาย)
-> ยังไม่มี loot, XP, inventory, equipment, skill system ฯลฯ
+> สถานะ: **M05 — Skill Foundation** (M04: enemy AI + combat feel)
+> ยังไม่มี loot, XP, inventory, equipment, skill tree/modifier/evolution ฯลฯ
 >
 > Art rules: [`docs/ART_DIRECTION.md`](docs/ART_DIRECTION.md)
+
+## M05 features — Skill Foundation
+
+- **SkillData** (`src/data/skill_data.gd`, Resource): id, ชื่อ, คำอธิบาย, damage, damage type, cooldown,
+  projectile scene/speed/lifetime, สี — **ค่า balance ทั้งหมดของสกิลอยู่ที่ `.tres` ไฟล์เดียว**
+- สกิลแรก: `src/data/skills/magic_bolt.tres` (Magic Bolt: dmg 10, cd 0.28 s, 16 m/s, 1.2 s)
+- **SkillController** (`src/skills/`) แทน ProjectileAttackComponent ของ M03 (ลบออกแล้ว — ไม่มี 2 ระบบซ้อน):
+  เช็ค ready/cooldown → ยิงผ่าน Projectile → Hurtbox → Health เดิม; กดตอน cooldown = ปฏิเสธ ไม่สร้างกระสุนซ้ำ
+- **HUD**: ช่องสกิลเล็กๆ กลางล่างจอ (สีสกิล, วงแหวน cooldown, เด้งตอนพร้อม, สั่น+ขอบส้มเมื่อกดตอนยังไม่พร้อม)
+- F3: `Skill  Magic Bolt (ready | cooldown x.xx s)  dmg  cd`
+
+## M04 features — Combat feel + Enemy AI
+
+- **Slime AI** (`EnemyBrain`): IDLE → เห็นผู้เล่นใน 7 m → CHASE (2.6 m/s, ช้ากว่าผู้เล่น = kite ได้) →
+  ถึง 1.3 m → ATTACK → COOLDOWN/CHASE; ผู้เล่นออกไปเกิน 10 m หรือล้ม → IDLE
+- **Melee** (`MeleeAttackComponent`): wind-up 0.45 s (ตัวพองขึ้น + สีส้มเตือน + หยุดนิ่ง) → strike (8 physical)
+  → recovery 0.35 s → cooldown 1.2 s; ถอยออกระหว่าง wind-up = หลบได้
+- **ผู้เล่นโดนตี**: เสีย HP, กะพริบขาว, ถูกผลัก, i-frames 0.6 s (ตัวกะพริบ), กล้องสั่นเบาๆ
+- HP หมด → ล้มลง → เกิดใหม่ที่จุดเกิดหลัง 1.5 s (placeholder, ยังไม่มี game over)
+- ศัตรูโดนยิงถูกผลักจริง, ตายแล้วกล้องสั่นนิดเดียว; `ARPGCamera.shake(amount, duration)` (ใช้ h/v offset ไม่กระทบ follow)
+- Test Garden: slime 10 ตัว 3 กลุ่ม (ขวาของจุดเกิด 4, ทางเหนือ 3, ทางใต้ 3) — ทุกกลุ่มอยู่นอกระยะมองเห็นตอนเริ่ม
+
+### Enemy tuning (ค่าอยู่บน component ของ `slime.tscn`)
+
+| ค่า | อยู่ที่ |
+|---|---|
+| max_health 30 | HealthComponent |
+| move_speed 2.6 | MovementComponent |
+| detection_range 7, attack_range 1.3 | EnemyBrain |
+| attack_damage 8, attack_cooldown 1.2 (+ wind-up/recovery) | MeleeAttack |
 
 ## M03 features
 
@@ -54,8 +84,8 @@ H:\GameDev\Godot\Godot_v4.7.2-stable_win64.exe --path H:\GameDev\CozyExile
 | Input | Action |
 |---|---|
 | W A S D / ลูกศร | เดิน (อิงทิศของหน้าจอ) |
-| Left Mouse (กดค้างได้) | ยิงลูกเวทไปทางเคอร์เซอร์ |
-| Space (กดค้างได้) | ยิงลูกเวทไปทางที่ตัวละครหัน |
+| Left Mouse (กดค้างได้) | ใช้สกิล (Magic Bolt) ไปทางเคอร์เซอร์ |
+| Space (กดค้างได้) | ใช้สกิลไปทางที่ตัวละครหัน |
 | Mouse wheel | Zoom in / out |
 | F3 | เปิด/ปิด debug overlay |
 
@@ -78,18 +108,19 @@ CozyExile/
     ├── actors/player/     # Player scene, PlayerModel (presentation) + scripts
     ├── actors/shared/     # presentation ที่ใช้ร่วมกันระหว่าง actor (blob shadow)
     ├── components/        # ส่วนประกอบที่ reuse ได้ (movement, input, health)
-    ├── combat/            # DamageInfo, Hurtbox, ProjectileAttackComponent
+    ├── combat/            # DamageInfo, Hurtbox (i-frames), MeleeAttackComponent
+    ├── skills/            # SkillController (casts a SkillData)
     ├── projectiles/       # Projectile (reusable) + magic_bolt.tscn
-    ├── enemies/           # Enemy (generic glue), EnemyVisual, slime/
+    ├── enemies/           # Enemy (generic glue), EnemyVisual, ai/EnemyBrain, slime/
     ├── camera/            # ARPG camera rig
     ├── world/
     │   ├── levels/        # 1 โฟลเดอร์ต่อ 1 level
     │   ├── props/         # prop scenes (placeholder ตอนนี้, GLB ภายหลัง)
     │   ├── environment/   # Environment resources
     │   └── tools/         # tool scripts เช่น MultiMeshScatter
-    ├── ui/                # UI แยกตาม feature (debug/, hud/ ภายหลัง)
+    ├── ui/                # debug/ (F3), hud/ (skill slot)
     ├── vfx/               # damage_number/, impact_puff/ (Skill VFX ภายหลัง)
-    ├── data/              # Resource definitions: SkillData, ItemData, AffixData ...
+    ├── data/              # Resource definitions (SkillData) + data files (skills/*.tres)
     ├── systems/           # Gameplay systems: combat, skills, items, passives ...
     └── core/              # Autoload เล็กๆ เท่าที่จำเป็นจริงเท่านั้น
 ```
@@ -120,15 +151,15 @@ CozyExile/
 - Typed GDScript ทั้งหมด (เปิด warning `untyped_declaration`)
 - Physics 60 Hz + **physics interpolation** → ลื่นบนจอ 144 Hz; camera follow อ่าน interpolated transform
 
-### Combat architecture (M03)
+### Combat architecture (M03–M05)
 
 ```
-Input (PlayerInputComponent: attack held + aim)
-  → player.gd (routes only) → ProjectileAttackComponent.try_attack(dir)   [cooldown, stats]
-  → Projectile (Area3D, flies)  ── area_entered ──► Hurtbox.receive_hit(DamageInfo)
-                                 └ body_entered (world) → impact → free
-  → HealthComponent.take_damage(info) → signals: damaged / died
-  → Enemy (glue) → EnemyVisual.play_hit() / play_death() → queue_free()
+Player:  Input → player.gd (routes only) → SkillController.try_cast(dir)   [SkillData: stats, cooldown, colour]
+           → Projectile (Area3D) ── area_entered ──► Hurtbox.receive_hit(DamageInfo) → HealthComponent
+                                  └ body_entered (world) → impact → free
+Enemy:   EnemyBrain.update() → MovementComponent.move()      (IDLE/CHASE/ATTACK/COOLDOWN)
+           → MeleeAttackComponent (wind-up → sphere query on player_hurtboxes → Hurtbox) → HealthComponent
+Reaction: HealthComponent.damaged/died → Enemy/Player glue → EnemyVisual / PlayerVisual / camera shake (main.gd)
 ```
 
 - **DamageInfo** (`RefCounted`): amount, damage_type (enum `MAGIC`; เพิ่ม type ใหม่ต่อท้าย enum ได้เลย),
@@ -136,7 +167,8 @@ Input (PlayerInputComponent: attack held + aim)
 - **ฝ่าย (faction) แยกด้วย physics layer ไม่ใช่โค้ด**: hurtbox ศัตรูอยู่ layer 8, ของผู้เล่น layer 9;
   projectile ของผู้เล่น mask = world + layer 8 → projectile/attack ตัวเดียวกันใช้กับศัตรูได้แค่เปลี่ยน mask
 - **HealthComponent** ใช้ร่วมกัน player/enemy, กันการตายซ้ำ, มี `heal()` เตรียมไว้
-- ไม่มี CombatManager / autoload — ทุกอย่างเป็น component + signal
+- ไม่มี CombatManager / EnemyManager / autoload — ทุกอย่างเป็น component + signal; เป้าหมายหาผ่าน group (`player`, `enemies`) + physics layer
+- สกิลในอนาคต: เพิ่ม `.tres` ใหม่ / SkillController ตัวใหม่; modifier/evolution/element/equipment = สร้าง SkillData ที่แก้ค่าแล้วก่อน cast
 
 ### Physics layers
 
@@ -160,13 +192,16 @@ Jolt: เปิด `areas_detect_static_bodies` เพื่อให้ project
 
 วัดใน Test Garden ที่ 1600×900 (Godot 4.7.2, Compatibility, Linux/Mesa — ตัวเลขบน Windows จะต่างได้ตามขนาดหน้าต่าง):
 
-| | M01 | M02 | M03 |
-|---|---|---|---|
-| Draw calls (default view) | 122 @15 m | 146 @12 m | 167 @12 m |
-| Draw calls (max zoom) | 155 @26 m | 184 @20 m | 224 @20 m |
-| Max zoom + 8 enemies + 20 projectiles | – | – | 244 |
-| Primitives | ~36–37k | ~73–75k | ~76–80k |
-| VRAM | 39.5 MB | 39.7 MB | 39.7 MB |
+| | M01 | M02 | M03 | M05 (+M04) |
+|---|---|---|---|---|
+| Draw calls (default view) | 122 @15 m | 146 @12 m | 167 @12 m | 168 @12 m |
+| Draw calls (max zoom) | 155 @26 m | 184 @20 m | 224 @20 m | 232 @20 m |
+| Combat stress (max zoom, AI chasing, 22 projectiles, hit FX) | – | – | 244 (static) | avg 244, peak 264 |
+| Primitives | ~36–37k | ~73–75k | ~76–80k | ~76–79k |
+| VRAM | 39.5 MB | 39.7 MB | 39.7 MB | 39.9–41.3 MB |
+
+M04/M05: flash/telegraph overlay เฉพาะชิ้นหลัก (slime 1 ชิ้น, ผู้เล่น 5 ชิ้น), melee ใช้ shape query ตัวเดียวซ้ำ (ไม่ allocate ต่อครั้ง),
+AI = ระยะทาง 1 ครั้ง/tick/ตัว, สกิลใช้ material ร่วม 1 อันต่อสกิล, HUD วาดใหม่เฉพาะตอน cooldown/animation
 
 M03: slime ≈ 6 draw calls/ตัว (เงาเฉพาะลำตัว), projectile = 1 draw call/ลูก (ไม่มีเงา, ไม่มี particle),
 hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (ไม่สร้าง material ต่อศัตรู), damage number = Label3D 1 ชิ้น/ครั้ง (~0.7 s)
@@ -184,7 +219,9 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 
 ## Current limitations
 
-- M03: ศัตรูยังไม่โจมตี/ไม่เดิน, ผู้เล่นมี HP แต่ยังไม่มีอะไรทำ damage ผู้เล่น (ยังไม่มี player hurtbox)
+- M05: สกิลเดียว (Magic Bolt), ช่อง HUD ช่องเดียว; ยังไม่มี mana / ปุ่มสลับสกิล
+- M04: AI ไม่มี pathfinding (เดินตรงเข้าหา, ไถลตามสิ่งกีดขวาง), ไม่กลับจุดเดิมเมื่อเลิกไล่, ศัตรูไม่หลบกันเอง
+- M04: ผู้เล่นตาย = เกิดใหม่อัตโนมัติ (placeholder); งบ draw call ช่วงพีคของการต่อสู้หนักสุด ~264 (เกิน 250 ชั่วขณะ)
 - M03: projectile ใช้ instantiate/queue_free ทุกลูก (ยังไม่มี pooling) และเลื่อนแบบไม่มี sweep —
   ความเร็วสูงมาก (> ~40 m/s) อาจทะลุเป้าบางๆ
 - M03: งบ draw call กรณีหนักสุด (zoom สุด + ศัตรูครบ + 20 ลูก) = 244/250 — เหลือน้อย
@@ -198,10 +235,10 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 ## Future work (ยังไม่ทำ — บันทึกไว้)
 
 - Projectile pooling + วาดด้วย MultiMesh เมื่อต้องการลูกเป็นร้อย
-- Player hurtbox + enemy attack (ใช้ Projectile/ProjectileAttackComponent เดิม, mask = world + layer 9)
-- Enemy brain component ป้อนทิศให้ MovementComponent (chase/keep distance)
+- Enemy ranged attack (SkillController + SkillData เดิม, mask = world + layer 9)
+- Separation/avoidance ระหว่างศัตรู, leash กลับจุดเกิด, navmesh เมื่อมี dungeon
 - Health bar เหนือศัตรู, สีตัวเลข damage ตาม damage type, crit
-- Skill resource → ส่ง projectile scene + stats ให้ attack component; modifier/evolution แก้ DamageInfo
+- หลายสกิล/ปุ่ม, modifier → SkillData ที่ปรับค่าแล้ว, evolution/element → `.tres` ใหม่
 - Resistances ใน HealthComponent (จุดที่เตรียมไว้แล้วใน `take_damage`)
 
 ## Milestones
@@ -209,4 +246,6 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 - [x] **M01** Project foundation
 - [x] **M02** Cute character + cozy art direction + camera polish
 - [x] **M03** Combat foundation
-- [ ] M04+ (ยังไม่กำหนด)
+- [x] **M04** Combat feel + enemy AI foundation
+- [x] **M05** Skill foundation
+- [ ] M06+ (ยังไม่กำหนด)

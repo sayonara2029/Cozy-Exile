@@ -581,28 +581,34 @@ mesh = SubResource("BoxMesh_lintel")
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="Slime0" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.547249, 0, 0.83697, 0, 1, 0, -0.83697, 0, -0.547249, 5.2, 0, 0.6)
+transform = Transform3D(-0.447214, 0, 0.894427, 0, 1, 0, -0.894427, 0, -0.447214, 7.2, 0, 0.4)
 
 [node name="Slime1" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.549178, 0, 0.835705, 0, 1, 0, -0.835705, 0, -0.549178, 7, 0, -0.6)
+transform = Transform3D(-0.495051, 0, 0.868864, 0, 1, 0, -0.868864, 0, -0.495051, 8.6, 0, -0.9)
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.295684, 0, 0.955286, 0, 1, 0, -0.955286, 0, -0.295684, 8.4, 0, 1.4)
+transform = Transform3D(-0.267644, 0, 0.963518, 0, 1, 0, -0.963518, 0, -0.267644, 9, 0, 1.5)
 
 [node name="Slime3" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.2356, 0, 0.97185, 0, 1, 0, -0.97185, 0, -0.2356, 6.6, 0, 2.4)
+transform = Transform3D(-0.200944, 0, 0.979603, 0, 1, 0, -0.979603, 0, -0.200944, 7.8, 0, 2.4)
 
 [node name="Slime4" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.519947, 0, 0.854199, 0, 1, 0, -0.854199, 0, -0.519947, 9.2, 0, -1.6)
+transform = Transform3D(-0.987636, 0, 0.156768, 0, 1, 0, -0.156768, 0, -0.987636, 2, 0, -8.6)
 
 [node name="Slime5" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.772726, 0, 0.634739, 0, 1, 0, -0.634739, 0, -0.772726, 4.6, 0, -1.6)
+transform = Transform3D(-0.967617, 0, 0.252422, 0, 1, 0, -0.252422, 0, -0.967617, 3.6, 0, -9.8)
 
 [node name="Slime6" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.0454077, 0, 0.998969, 0, 1, 0, -0.998969, 0, -0.0454077, 8.8, 0, 3.6)
+transform = Transform3D(-0.997663, 0, 0.0683331, 0, 1, 0, -0.0683331, 0, -0.997663, 1, 0, -10.6)
 
 [node name="Slime7" parent="Enemies" instance=ExtResource("27_r")]
-transform = Transform3D(-0.419058, 0, 0.907959, 0, 1, 0, -0.907959, 0, -0.419058, 10.4, 0, -0.8)
+transform = Transform3D(0.98313, 0, 0.182908, 0, 1, 0, -0.182908, 0, 0.98313, 1.6, 0, 12.6)
+
+[node name="Slime8" parent="Enemies" instance=ExtResource("27_r")]
+transform = Transform3D(0.954146, 0, 0.29934, 0, 1, 0, -0.29934, 0, 0.954146, 3.2, 0, 14.2)
+
+[node name="Slime9" parent="Enemies" instance=ExtResource("27_r")]
+transform = Transform3D(0.999829, 0, 0.0185153, 0, 1, 0, -0.0185153, 0, 0.999829, 0.2, 0, 14.8)
 
 [node name="Lanterns" type="Node3D" parent="."]
 

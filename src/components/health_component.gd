@@ -40,6 +40,12 @@ func take_damage(info: DamageInfo) -> float:
 	return applied
 
 
+## Brings a dead (or hurt) actor back to full health (respawn).
+func revive() -> void:
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
+
+
 ## Restores health (not above max). Dead actors cannot be healed. Returns amount healed.
 func heal(amount: float) -> float:
 	if amount <= 0.0 or is_dead():

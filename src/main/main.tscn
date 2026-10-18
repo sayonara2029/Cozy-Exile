@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://src/actors/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://src/camera/arpg_camera.tscn" id="4_camera"]
 [ext_resource type="PackedScene" path="res://src/ui/debug/debug_overlay.tscn" id="5_debug"]
+[ext_resource type="PackedScene" path="res://src/ui/hud/skill_hud.tscn" id="6_skillhud"]
 
 [node name="Main" type="Node3D" unique_id=1672217671]
 script = ExtResource("1_main")
@@ -17,3 +18,5 @@ script = ExtResource("1_main")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022503138, 0, 0)
 
 [node name="DebugOverlay" parent="." unique_id=1355275479 instance=ExtResource("5_debug")]
+
+[node name="SkillHud" parent="." instance=ExtResource("6_skillhud")]

@@ -7,11 +7,17 @@
 [ext_resource type="PackedScene" path="res://src/actors/player/player_model.tscn" id="5_r"]
 [ext_resource type="PackedScene" path="res://src/actors/shared/blob_shadow.tscn" id="6_r"]
 [ext_resource type="Script" path="res://src/components/health_component.gd" id="7_r"]
-[ext_resource type="Script" path="res://src/combat/projectile_attack_component.gd" id="8_r"]
-[ext_resource type="PackedScene" path="res://src/projectiles/magic_bolt.tscn" id="9_r"]
+[ext_resource type="Script" path="res://src/skills/skill_controller.gd" id="8_r"]
+[ext_resource type="Resource" path="res://src/data/skills/magic_bolt.tres" id="9_r"]
+[ext_resource type="Script" path="res://src/combat/hurtbox.gd" id="10_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_hit_flash.tres" id="11_r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.35
+height = 1.3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurt"]
+radius = 0.4
 height = 1.3
 
 [node name="Player" type="CharacterBody3D"]
@@ -33,20 +39,35 @@ script = ExtResource("4_r")
 script = ExtResource("7_r")
 max_health = 100.0
 
-[node name="ProjectileAttack" type="Node3D" parent="."]
+[node name="SkillController" type="Node3D" parent="."]
 script = ExtResource("8_r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-projectile_scene = ExtResource("9_r")
-cooldown = 0.28
-damage = 10.0
+skill = ExtResource("9_r")
 projectile_mask = 129
 
-[node name="Visual" type="Node3D" parent="." node_paths=PackedStringArray("body", "movement", "attack", "model")]
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "actor")]
+collision_layer = 256
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_r")
+health = NodePath("../HealthComponent")
+actor = NodePath("..")
+invulnerable_time = 0.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+shape = SubResource("CapsuleShape3D_hurt")
+
+[node name="Visual" type="Node3D" parent="." node_paths=PackedStringArray("body", "movement", "skills", "health", "hurtbox", "model")]
 script = ExtResource("2_r")
 body = NodePath("..")
 movement = NodePath("../MovementComponent")
-attack = NodePath("../ProjectileAttack")
+skills = NodePath("../SkillController")
+health = NodePath("../HealthComponent")
+hurtbox = NodePath("../Hurtbox")
 model = NodePath("PlayerModel")
+hit_flash_material = ExtResource("11_r")
+flash_meshes = Array[NodePath]([NodePath("PlayerModel/Body/Head/Face"), NodePath("PlayerModel/Body/Torso/Robe"), NodePath("PlayerModel/Body/Head/Hat/Brim"), NodePath("PlayerModel/Body/Head/Hat/Cone"), NodePath("PlayerModel/Body/Head/Hat/TipPivot/Tip")])
 
 [node name="PlayerModel" parent="Visual" instance=ExtResource("5_r")]
 

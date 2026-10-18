@@ -1,8 +1,9 @@
 class_name Projectile
 extends Area3D
 ## Reusable straight-flying projectile. Knows nothing about who fired it beyond
-## a `source` reference: the attacker sets damage, type, collision mask and
-## calls launch(). Works for player skills now and enemy skills later.
+## a `source` reference: the caster (SkillController) sets damage, type, speed,
+## lifetime, collision mask and look from a SkillData, then calls launch().
+## The exported values below are only fallbacks for projectiles used directly.
 ##
 ## Hits: any Hurtbox on a masked layer (area_entered) -> deals damage.
 ## Blocks: any physics body on a masked layer, e.g. world (body_entered).
@@ -23,12 +24,21 @@ var source: Node = null
 
 var _age: float = 0.0
 var _spent: bool = false
+var _visual_material: Material = null
 
 
 func _ready() -> void:
 	add_to_group(&"projectiles")
 	area_entered.connect(_on_area_entered)
 	body_entered.connect(_on_body_entered)
+
+
+## Tints every mesh of this projectile (and its impact) with a shared material.
+## Call before adding to the tree or any time after.
+func set_visual_material(material: Material) -> void:
+	_visual_material = material
+	for node in find_children("*", "GeometryInstance3D", true, false):
+		(node as GeometryInstance3D).material_override = material
 
 
 ## Places the projectile and sends it flying. Call after adding it to the tree.
@@ -79,6 +89,8 @@ func _finish() -> void:
 	set_deferred(&"monitoring", false)
 	if impact_scene:
 		var impact := impact_scene.instantiate() as Node3D
+		if _visual_material and impact is GeometryInstance3D:
+			(impact as GeometryInstance3D).material_override = _visual_material
 		get_parent().add_child(impact)
 		impact.global_position = global_position
 	finished.emit()

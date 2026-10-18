@@ -6,10 +6,9 @@ extends RefCounted
 ## applied: skill modifiers (amount, type), evolutions (extra effects),
 ## resistances (in HealthComponent / a future stats step).
 
-## Damage types. Only MAGIC exists in M03. Add new types by APPENDING to the end
-## (e.g. PHYSICAL, FIRE, COLD, LIGHTNING, NATURE) so saved/exported values of
-## existing entries never change meaning.
-enum Type { MAGIC }
+## Damage types. Add new types by APPENDING to the end (e.g. FIRE, COLD,
+## LIGHTNING, NATURE) so saved/exported values of existing entries never change.
+enum Type { MAGIC, PHYSICAL }
 
 var amount: float = 0.0
 var damage_type: Type = Type.MAGIC

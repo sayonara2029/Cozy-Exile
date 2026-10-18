@@ -4,7 +4,7 @@ extends Node
 ## relative to the active camera, so "W" always means "up the screen".
 ##
 ## Only reads input; it never moves or attacks. Swap it for an AI component
-## to drive the same MovementComponent / ProjectileAttackComponent.
+## to drive the same MovementComponent / SkillController.
 
 
 func get_move_direction() -> Vector3:
@@ -28,6 +28,11 @@ func get_move_direction() -> Vector3:
 ## True while the attack button (left mouse or Space) is held: holding = auto-fire.
 func is_attack_held() -> bool:
 	return Input.is_action_pressed(&"attack_primary")
+
+
+## True only on the tick the attack button goes down (used for "not ready" feedback).
+func is_attack_just_pressed() -> bool:
+	return Input.is_action_just_pressed(&"attack_primary")
 
 
 ## Aim direction on the ground plane. With the mouse button held it points at

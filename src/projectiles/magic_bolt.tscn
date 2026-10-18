@@ -19,9 +19,6 @@ script = ExtResource("1_r")
 collision_layer = 8
 collision_mask = 129
 monitorable = false
-speed = 16.0
-lifetime = 1.2
-damage = 10.0
 impact_scene = ExtResource("2_r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

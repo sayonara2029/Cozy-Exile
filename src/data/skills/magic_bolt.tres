@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+
+[ext_resource type="Script" path="res://src/data/skill_data.gd" id="1_skill"]
+[ext_resource type="PackedScene" path="res://src/projectiles/magic_bolt.tscn" id="2_bolt"]
+
+[resource]
+script = ExtResource("1_skill")
+id = &"magic_bolt"
+display_name = "Magic Bolt"
+description = "A small spark of starlight that flies straight ahead and bursts on the first enemy it touches."
+base_damage = 10.0
+damage_type = 0
+cooldown = 0.28
+projectile_scene = ExtResource("2_bolt")
+projectile_speed = 16.0
+projectile_lifetime = 1.2
+color = Color(0.66, 0.95, 1, 1)

@@ -30,6 +30,11 @@ signal zoom_changed(distance: float)
 var target_distance: float
 var current_distance: float
 
+var _shake_amount: float = 0.0
+var _shake_time_left: float = 0.0
+var _shake_duration: float = 0.0
+var _shake_seed: float = 0.0
+
 @onready var camera: Camera3D = $Camera3D
 
 
@@ -58,6 +63,7 @@ func _process(delta: float) -> void:
 
 	current_distance = lerpf(current_distance, target_distance, 1.0 - exp(-zoom_sharpness * delta))
 	_apply_distance()
+	_update_shake(delta)
 
 
 func set_zoom(distance: float) -> void:
@@ -66,6 +72,38 @@ func set_zoom(distance: float) -> void:
 		return
 	target_distance = clamped
 	zoom_changed.emit(target_distance)
+
+
+## Small screen shake. Uses the camera's h/v offsets (a lens shift), so the rig's
+## follow position never drifts. Overlapping calls keep the strongest shake.
+func shake(amount: float, duration: float) -> void:
+	if amount <= 0.0 or duration <= 0.0:
+		return
+	if amount >= _shake_amount * (_shake_time_left / maxf(_shake_duration, 0.001)):
+		_shake_amount = amount
+		_shake_duration = duration
+		_shake_time_left = duration
+		_shake_seed = randf() * 100.0
+
+
+func is_shaking() -> bool:
+	return _shake_time_left > 0.0
+
+
+func _update_shake(delta: float) -> void:
+	if _shake_time_left <= 0.0:
+		return
+	_shake_time_left -= delta
+	if _shake_time_left <= 0.0:
+		_shake_time_left = 0.0
+		_shake_amount = 0.0
+		camera.h_offset = 0.0
+		camera.v_offset = 0.0
+		return
+	var strength := _shake_amount * (_shake_time_left / _shake_duration)
+	var t := _shake_seed + _shake_time_left * 60.0
+	camera.h_offset = sin(t * 1.7) * strength
+	camera.v_offset = cos(t * 2.3) * strength
 
 
 ## Jumps straight to the target (spawn, teleport) with no smoothing.
