@@ -4,6 +4,7 @@
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_roof.tres" id="2_roof"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood.tres" id="3_wood"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_lantern_glow.tres" id="4_glow"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="5_merge"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_walls"]
 material = ExtResource("1_wall")
@@ -53,3 +54,8 @@ mesh = SubResource("BoxMesh_chimney")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 shape = SubResource("BoxShape3D_house")
+
+[node name="MeshMerger" type="Node" parent="."]
+script = ExtResource("5_merge")
+targets = Array[NodePath]([NodePath("Door"), NodePath("Chimney")])
+merged_prefix = "WoodTrim"

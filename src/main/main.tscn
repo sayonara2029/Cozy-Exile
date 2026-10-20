@@ -11,6 +11,7 @@
 script = ExtResource("1_main")
 
 [node name="Level" parent="." unique_id=1615001979 instance=ExtResource("2_level")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1765563, -0.18658757, 0.75890756)
 
 [node name="Player" parent="." unique_id=668052797 instance=ExtResource("3_player")]
 
@@ -19,4 +20,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0022503138, 0, 0)
 
 [node name="DebugOverlay" parent="." unique_id=1355275479 instance=ExtResource("5_debug")]
 
-[node name="SkillHud" parent="." instance=ExtResource("6_skillhud")]
+[node name="SkillHud" parent="." unique_id=659764381 instance=ExtResource("6_skillhud")]

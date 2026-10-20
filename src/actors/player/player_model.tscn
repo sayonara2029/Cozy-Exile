@@ -12,6 +12,7 @@
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_player_gem.tres" id="10_r"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood_light.tres" id="11_r"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_player_skin.tres" id="12_r"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="13_r"]
 
 [sub_resource type="CylinderMesh" id="Mesh_robe"]
 material = ExtResource("3_r")
@@ -254,6 +255,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0.15)
 cast_shadow = 0
 mesh = SubResource("Mesh_gem")
 
+[node name="MeshMerger" type="Node" parent="Body/Head/Hat"]
+script = ExtResource("13_r")
+merged_prefix = "HatMesh"
+targets = Array[NodePath]([NodePath("Brim"), NodePath("Cone"), NodePath("TipPivot/Tip")])
+
+[node name="MeshMerger" type="Node" parent="Body/Head"]
+script = ExtResource("13_r")
+merged_prefix = "FaceDetail"
+targets = Array[NodePath]([NodePath("EyeLeft"), NodePath("EyeRight"), NodePath("ShineLeft"), NodePath("ShineRight"), NodePath("CheekLeft"), NodePath("CheekRight")])
+
+[node name="MeshMerger" type="Node" parent="Body/Torso"]
+script = ExtResource("13_r")
+merged_prefix = "Trim"
+targets = Array[NodePath]([NodePath("Hem"), NodePath("Scarf")])
+
 [node name="ArmLeft" type="Node3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.6, 0)
 
@@ -283,6 +299,11 @@ transform = Transform3D(0.9, 0, 0, 0, 0.55, 0, 0, 0, 1.25, 0, -0.19, -0.03)
 cast_shadow = 0
 mesh = SubResource("Mesh_foot")
 
+[node name="MeshMerger" type="Node" parent="Body/LegLeft"]
+script = ExtResource("13_r")
+merged_prefix = "LegMesh"
+targets = Array[NodePath]([NodePath("Shin"), NodePath("Foot")])
+
 [node name="ArmRight" type="Node3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.6, 0)
 
@@ -311,3 +332,8 @@ mesh = SubResource("Mesh_leg")
 transform = Transform3D(0.9, 0, 0, 0, 0.55, 0, 0, 0, 1.25, 0, -0.19, -0.03)
 cast_shadow = 0
 mesh = SubResource("Mesh_foot")
+
+[node name="MeshMerger" type="Node" parent="Body/LegRight"]
+script = ExtResource("13_r")
+merged_prefix = "LegMesh"
+targets = Array[NodePath]([NodePath("Shin"), NodePath("Foot")])

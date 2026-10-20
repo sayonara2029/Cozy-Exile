@@ -2,6 +2,7 @@
 
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood_light.tres" id="1_r"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood.tres" id="2_r"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="3_r"]
 
 [sub_resource type="BoxMesh" id="Mesh_seat"]
 material = ExtResource("1_r")
@@ -37,6 +38,10 @@ mesh = SubResource("Mesh_leg")
 [node name="Back" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.72, 0.19)
 mesh = SubResource("Mesh_back")
+
+[node name="MeshMerger" type="Node" parent="."]
+script = ExtResource("3_r")
+merged_prefix = "BenchMesh"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.02)

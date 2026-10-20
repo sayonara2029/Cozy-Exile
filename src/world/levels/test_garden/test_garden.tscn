@@ -26,9 +26,10 @@
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_trunk.tres" id="24_r"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_lily.tres" id="25_r"]
 [ext_resource type="Material" path="res://assets/materials/placeholder/mat_reed.tres" id="26_r"]
-[ext_resource type="PackedScene" path="res://src/enemies/slime/slime.tscn" id="27_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_leaf.tres" id="28_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_pine.tres" id="29_r"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="27_r"]
+[ext_resource type="PackedScene" path="res://src/enemies/slime/slime.tscn" id="28_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_leaf.tres" id="29_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_pine.tres" id="30_r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ground"]
 material = ExtResource("15_r")
@@ -214,14 +215,14 @@ radial_segments = 6
 rings = 1
 
 [sub_resource type="SphereMesh" id="Tree_crown"]
-material = ExtResource("28_r")
+material = ExtResource("29_r")
 radius = 1.1
 height = 1.9
 radial_segments = 8
 rings = 4
 
 [sub_resource type="SphereMesh" id="Tree_top"]
-material = ExtResource("28_r")
+material = ExtResource("29_r")
 radius = 0.7
 height = 1.2
 radial_segments = 7
@@ -236,7 +237,7 @@ radial_segments = 6
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier0"]
-material = ExtResource("29_r")
+material = ExtResource("30_r")
 top_radius = 0.0
 bottom_radius = 1.0
 height = 1.3
@@ -244,7 +245,7 @@ radial_segments = 7
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier1"]
-material = ExtResource("29_r")
+material = ExtResource("30_r")
 top_radius = 0.0
 bottom_radius = 0.78
 height = 1.1
@@ -252,7 +253,7 @@ radial_segments = 7
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier2"]
-material = ExtResource("29_r")
+material = ExtResource("30_r")
 top_radius = 0.0
 bottom_radius = 0.52
 height = 0.9
@@ -470,6 +471,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 3.6)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_rail")
 
+[node name="MeshMerger" type="Node" parent="Fence"]
+script = ExtResource("27_r")
+merged_prefix = "FenceMesh"
+
 [node name="Props" type="Node3D" parent="."]
 
 [node name="Barrel0" parent="Props" instance=ExtResource("7_r")]
@@ -580,34 +585,34 @@ mesh = SubResource("BoxMesh_lintel")
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Slime0" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime0" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.447214, 0, 0.894427, 0, 1, 0, -0.894427, 0, -0.447214, 7.2, 0, 0.4)
 
-[node name="Slime1" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime1" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.495051, 0, 0.868864, 0, 1, 0, -0.868864, 0, -0.495051, 8.6, 0, -0.9)
 
-[node name="Slime2" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime2" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.267644, 0, 0.963518, 0, 1, 0, -0.963518, 0, -0.267644, 9, 0, 1.5)
 
-[node name="Slime3" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime3" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.200944, 0, 0.979603, 0, 1, 0, -0.979603, 0, -0.200944, 7.8, 0, 2.4)
 
-[node name="Slime4" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime4" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.987636, 0, 0.156768, 0, 1, 0, -0.156768, 0, -0.987636, 2, 0, -8.6)
 
-[node name="Slime5" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime5" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.967617, 0, 0.252422, 0, 1, 0, -0.252422, 0, -0.967617, 3.6, 0, -9.8)
 
-[node name="Slime6" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime6" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(-0.997663, 0, 0.0683331, 0, 1, 0, -0.0683331, 0, -0.997663, 1, 0, -10.6)
 
-[node name="Slime7" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime7" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(0.98313, 0, 0.182908, 0, 1, 0, -0.182908, 0, 0.98313, 1.6, 0, 12.6)
 
-[node name="Slime8" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime8" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(0.954146, 0, 0.29934, 0, 1, 0, -0.29934, 0, 0.954146, 3.2, 0, 14.2)
 
-[node name="Slime9" parent="Enemies" instance=ExtResource("27_r")]
+[node name="Slime9" parent="Enemies" instance=ExtResource("28_r")]
 transform = Transform3D(0.999829, 0, 0.0185153, 0, 1, 0, -0.0185153, 0, 0.999829, 0.2, 0, 14.8)
 
 [node name="Lanterns" type="Node3D" parent="."]

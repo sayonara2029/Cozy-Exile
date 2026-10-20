@@ -3,10 +3,19 @@
 Cute, cozy, stylized low-poly **3D isometric Action RPG** สำหรับ Windows PC
 Single-player, offline · Godot 4.7 · GDScript · Compatibility renderer
 
-> สถานะ: **M05 — Skill Foundation** (M04: enemy AI + combat feel)
+> สถานะ: **M06 — Combat Performance + Readability** (M05: skills, M04: enemy AI)
 > ยังไม่มี loot, XP, inventory, equipment, skill tree/modifier/evolution ฯลฯ
 >
 > Art rules: [`docs/ART_DIRECTION.md`](docs/ART_DIRECTION.md)
+
+## M06 — Combat performance + readability
+
+- **MeshMerger** (`src/world/tools/mesh_merger.gd`): ตอนโหลด รวมชิ้น mesh ที่ไม่ขยับแยกกัน + ใช้ material/เงาเดียวกัน
+  เป็น mesh เดียว (ภาพเหมือนเดิม) — ใช้กับหมวก/หน้า/ขาผู้เล่น, ตา slime, ถัง, ม้านั่ง, พุ่มไม้, เห็ด, คริสตัล, ป้าย, บ้าน, รั้ว
+  ชิ้นที่ขยับเอง (อัญมณี, ผ้าพันคอ, แขน) ไม่ถูกรวม
+- **Health bar** เหนือศัตรู (`src/ui/world/`): 2 quad, material ร่วม, ซ่อนตอน HP เต็ม/ตาย, อัปเดตจาก HealthComponent
+- **Separation**: slime ที่ตื่นอยู่ผลักกันเบาๆ (รัศมี 1.4 m) — กระจายล้อมผู้เล่นแทนการกองกัน; ไม่มี navmesh/manager
+  (รายชื่อเพื่อนบ้านเก็บเป็น static list ในคลาส `EnemyBrain`, ไม่ allocate ต่อ tick)
 
 ## M05 features — Skill Foundation
 
@@ -117,8 +126,8 @@ CozyExile/
     │   ├── levels/        # 1 โฟลเดอร์ต่อ 1 level
     │   ├── props/         # prop scenes (placeholder ตอนนี้, GLB ภายหลัง)
     │   ├── environment/   # Environment resources
-    │   └── tools/         # tool scripts เช่น MultiMeshScatter
-    ├── ui/                # debug/ (F3), hud/ (skill slot)
+    │   └── tools/         # MultiMeshScatter, MeshMerger
+    ├── ui/                # debug/ (F3), hud/ (skill slot), world/ (enemy health bar)
     ├── vfx/               # damage_number/, impact_puff/ (Skill VFX ภายหลัง)
     ├── data/              # Resource definitions (SkillData) + data files (skills/*.tres)
     ├── systems/           # Gameplay systems: combat, skills, items, passives ...
@@ -197,6 +206,10 @@ Jolt: เปิด `areas_detect_static_bodies` เพื่อให้ project
 | Draw calls (default view) | 122 @15 m | 146 @12 m | 167 @12 m | 168 @12 m |
 | Draw calls (max zoom) | 155 @26 m | 184 @20 m | 224 @20 m | 232 @20 m |
 | Combat stress (max zoom, AI chasing, 22 projectiles, hit FX) | – | – | 244 (static) | avg 244, peak 264 |
+
+**M06** (วัดซ้ำด้วย scenario เดียวกัน): default 168 → **145**, max zoom 232 → **189**,
+combat stress avg 234–240 → **202**, peak 263–264 → **227** (รวม health bar ~+7 แล้ว), primitives ~81k, VRAM 41.4 MB.
+แหล่งที่เหลือ (profiler): เงา 69, slime 43 (รวม bar), props 31, player 30, rocks 20, projectiles 18, lanterns 16
 | Primitives | ~36–37k | ~73–75k | ~76–80k | ~76–79k |
 | VRAM | 39.5 MB | 39.7 MB | 39.7 MB | 39.9–41.3 MB |
 
@@ -220,8 +233,9 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 ## Current limitations
 
 - M05: สกิลเดียว (Magic Bolt), ช่อง HUD ช่องเดียว; ยังไม่มี mana / ปุ่มสลับสกิล
-- M04: AI ไม่มี pathfinding (เดินตรงเข้าหา, ไถลตามสิ่งกีดขวาง), ไม่กลับจุดเดิมเมื่อเลิกไล่, ศัตรูไม่หลบกันเอง
-- M04: ผู้เล่นตาย = เกิดใหม่อัตโนมัติ (placeholder); งบ draw call ช่วงพีคของการต่อสู้หนักสุด ~264 (เกิน 250 ชั่วขณะ)
+- M04: AI ไม่มี pathfinding (เดินตรงเข้าหา, ไถลตามสิ่งกีดขวาง), ไม่กลับจุดเดิมเมื่อเลิกไล่ (M06: กระจายตัวแล้ว)
+- M04: ผู้เล่นตาย = เกิดใหม่อัตโนมัติ (placeholder)
+- M06: MeshMerger ทำงานตอนโหลด (ไม่ใช่ตอน edit) — ใน editor ยังเห็นชิ้นแยกตามเดิม
 - M03: projectile ใช้ instantiate/queue_free ทุกลูก (ยังไม่มี pooling) และเลื่อนแบบไม่มี sweep —
   ความเร็วสูงมาก (> ~40 m/s) อาจทะลุเป้าบางๆ
 - M03: งบ draw call กรณีหนักสุด (zoom สุด + ศัตรูครบ + 20 ลูก) = 244/250 — เหลือน้อย
@@ -236,8 +250,9 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 
 - Projectile pooling + วาดด้วย MultiMesh เมื่อต้องการลูกเป็นร้อย
 - Enemy ranged attack (SkillController + SkillData เดิม, mask = world + layer 9)
-- Separation/avoidance ระหว่างศัตรู, leash กลับจุดเกิด, navmesh เมื่อมี dungeon
-- Health bar เหนือศัตรู, สีตัวเลข damage ตาม damage type, crit
+- Leash กลับจุดเกิด, navmesh เมื่อมี dungeon
+- ลด draw call ต่อ: หินใน Test Garden เป็น MultiMesh (~20 → ~4), ตะเกียง, projectile แบบ MultiMesh เมื่อต้องการ 50+ ลูก
+- สีตัวเลข damage ตาม damage type, crit
 - หลายสกิล/ปุ่ม, modifier → SkillData ที่ปรับค่าแล้ว, evolution/element → `.tres` ใหม่
 - Resistances ใน HealthComponent (จุดที่เตรียมไว้แล้วใน `take_damage`)
 
@@ -248,4 +263,5 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 - [x] **M03** Combat foundation
 - [x] **M04** Combat feel + enemy AI foundation
 - [x] **M05** Skill foundation
-- [ ] M06+ (ยังไม่กำหนด)
+- [x] **M06** Combat performance + readability
+- [ ] M07+ (ยังไม่กำหนด)

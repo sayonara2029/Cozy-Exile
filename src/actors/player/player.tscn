@@ -67,7 +67,7 @@ health = NodePath("../HealthComponent")
 hurtbox = NodePath("../Hurtbox")
 model = NodePath("PlayerModel")
 hit_flash_material = ExtResource("11_r")
-flash_meshes = Array[NodePath]([NodePath("PlayerModel/Body/Head/Face"), NodePath("PlayerModel/Body/Torso/Robe"), NodePath("PlayerModel/Body/Head/Hat/Brim"), NodePath("PlayerModel/Body/Head/Hat/Cone"), NodePath("PlayerModel/Body/Head/Hat/TipPivot/Tip")])
+flash_meshes = Array[NodePath]([NodePath("PlayerModel/Body/Head/Face"), NodePath("PlayerModel/Body/Torso/Robe"), NodePath("PlayerModel/Body/Head/Hat/HatMesh0")])
 
 [node name="PlayerModel" parent="Visual" instance=ExtResource("5_r")]
 
