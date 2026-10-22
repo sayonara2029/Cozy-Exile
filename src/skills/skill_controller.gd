@@ -6,7 +6,8 @@ extends Node3D
 ##
 ## Holds no balance numbers of its own: damage, cooldown, speed, lifetime and
 ## colour all come from `skill`. Place it where shots start (muzzle height).
-## Faction is the projectile mask set here, so enemies can reuse it later.
+## Not input-specific: the player (player.gd) and AI (RangedEnemyBrain) both just
+## call try_cast(). Faction = projectile_layer + projectile_mask set on this node.
 ## More skills = more SkillController nodes (or swap `skill` at runtime).
 
 ## A cast succeeded (presentation: cast pose, HUD).
@@ -17,7 +18,11 @@ signal cast_rejected(skill: SkillData)
 signal became_ready(skill: SkillData)
 
 @export var skill: SkillData
-## Layers the projectiles may hit: world (1) + the target faction's hurtboxes.
+## Faction of the projectiles (their own physics layer), e.g. player_projectiles
+## (layer 4 = 8) or enemy_projectiles (layer 5 = 16). 0 = keep the scene's layer.
+@export_flags_3d_physics var projectile_layer: int = 0
+## Layers the projectiles may hit: world (1) + the *opposing* faction's hurtboxes
+## (player casts: 1 + enemy_hurtboxes 128; enemy casts: 1 + player_hurtboxes 256).
 @export_flags_3d_physics var projectile_mask: int = 1
 ## How far in front of the caster the projectile appears.
 @export var spawn_forward_offset: float = 0.6
@@ -79,6 +84,8 @@ func try_cast(direction: Vector3) -> bool:
 	projectile.damage_type = skill.damage_type
 	projectile.speed = skill.projectile_speed
 	projectile.lifetime = skill.projectile_lifetime
+	if projectile_layer != 0:
+		projectile.collision_layer = projectile_layer
 	projectile.collision_mask = projectile_mask
 	projectile.set_visual_material(skill.get_projectile_material())
 	_spawn_parent().add_child(projectile)

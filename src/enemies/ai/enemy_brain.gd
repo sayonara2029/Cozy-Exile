@@ -16,6 +16,11 @@ extends Node
 ## list kept by the class itself: no manager, no per-tick allocations.
 
 signal state_changed(previous: State, current: State)
+## Presentation hooks shared by every brain (melee forwards them from its
+## MeleeAttackComponent, ranged brains emit them around their telegraph/shot).
+signal attack_windup(duration: float)
+## hits = targets damaged (melee) / 1 if a projectile was fired, else 0 (ranged).
+signal attack_released(hits: int)
 
 enum State { IDLE, CHASE, ATTACK, COOLDOWN }
 
@@ -47,6 +52,12 @@ var _stopped: bool = false
 
 func _enter_tree() -> void:
 	_brains.append(self)
+
+
+func _ready() -> void:
+	if melee:
+		melee.windup_started.connect(func(d: float) -> void: attack_windup.emit(d))
+		melee.struck.connect(func(h: int) -> void: attack_released.emit(h))
 
 
 func _exit_tree() -> void:

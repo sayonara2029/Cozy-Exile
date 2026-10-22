@@ -43,6 +43,7 @@ max_health = 100.0
 script = ExtResource("8_r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 skill = ExtResource("9_r")
+projectile_layer = 8
 projectile_mask = 129
 
 [node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "actor")]

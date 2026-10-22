@@ -1,0 +1,156 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/enemies/enemy.gd" id="1_r"]
+[ext_resource type="Script" path="res://src/components/health_component.gd" id="2_r"]
+[ext_resource type="Script" path="res://src/combat/hurtbox.gd" id="3_r"]
+[ext_resource type="Script" path="res://src/enemies/enemy_visual.gd" id="4_r"]
+[ext_resource type="Script" path="res://src/components/movement_component.gd" id="5_r"]
+[ext_resource type="Script" path="res://src/enemies/ai/ranged_enemy_brain.gd" id="6_r"]
+[ext_resource type="Script" path="res://src/skills/skill_controller.gd" id="7_r"]
+[ext_resource type="Resource" path="res://src/data/skills/spore_shot.tres" id="8_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_hit_flash.tres" id="9_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_telegraph.tres" id="10_r"]
+[ext_resource type="PackedScene" path="res://src/vfx/damage_number/damage_number.tscn" id="11_r"]
+[ext_resource type="PackedScene" path="res://src/ui/world/world_health_bar.tscn" id="12_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_mushroom_stem.tres" id="13_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_enemy_slime.tres" id="14_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_enemy_eye.tres" id="15_r"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="16_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_stem"]
+material = ExtResource("13_r")
+top_radius = 0.2
+bottom_radius = 0.27
+height = 0.6
+radial_segments = 10
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_cap"]
+material = ExtResource("14_r")
+radius = 0.5
+height = 0.5
+radial_segments = 12
+rings = 4
+is_hemisphere = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_dot"]
+material = ExtResource("15_r")
+radius = 0.07
+height = 0.14
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_body"]
+radius = 0.45
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurt"]
+radius = 0.5
+height = 1.1
+
+[node name="Sporecap" type="CharacterBody3D"]
+script = ExtResource("1_r")
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("SphereShape3D_body")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_r")
+max_health = 24.0
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("5_r")
+move_speed = 2.2
+acceleration = 12.0
+deceleration = 16.0
+
+[node name="SkillController" type="Node3D" parent="."]
+script = ExtResource("7_r")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+skill = ExtResource("8_r")
+projectile_layer = 16
+projectile_mask = 257
+spawn_forward_offset = 0.55
+
+[node name="EnemyBrain" type="Node" parent="." node_paths=PackedStringArray("body", "skill")]
+script = ExtResource("6_r")
+body = NodePath("..")
+skill = NodePath("../SkillController")
+detection_range = 9.0
+lose_margin = 3.0
+preferred_range = 6.0
+range_tolerance = 1.5
+min_attack_range = 2.5
+telegraph_time = 0.6
+recovery_time = 0.45
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "actor")]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_r")
+health = NodePath("../HealthComponent")
+actor = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_hurt")
+
+[node name="Visual" type="Node3D" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("4_r")
+flash_material = ExtResource("9_r")
+damage_number_scene = ExtResource("11_r")
+telegraph_material = ExtResource("10_r")
+body = NodePath("..")
+reference_speed = 2.2
+overlay_meshes = Array[NodePath]([NodePath("Cap")])
+
+[node name="Stem" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_stem")
+
+[node name="Cap" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.85, 0, 0, 0, 1, 0, 0.56, 0)
+mesh = SubResource("SphereMesh_cap")
+
+[node name="Spot0" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 1.03, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="Spot1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.8, 0, 0, 0, 0.48, 0, 0, 0, 0.8, 0.3, 0.9, 0.2)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="Spot2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.75, 0, 0, 0, 0.45, 0, 0, 0, 0.75, -0.32, 0.88, 0.1)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="Spot3" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.7, 0, 0, 0, 0.42, 0, 0, 0, 0.7, 0.1, 0.92, 0.36)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.965926, -0.207055, 0, 0.258819, 0.772741, 0, 0, 0, 0.5, -0.1, 0.2, -0.26)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.965926, 0.207055, 0, -0.258819, 0.772741, 0, 0, 0, 0.5, 0.1, 0.2, -0.26)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_dot")
+
+[node name="MeshMerger" type="Node" parent="Visual"]
+script = ExtResource("16_r")
+merged_prefix = "Glow"
+targets = Array[NodePath]([NodePath("Spot0"), NodePath("Spot1"), NodePath("Spot2"), NodePath("Spot3"), NodePath("EyeLeft"), NodePath("EyeRight")])
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("12_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+health = NodePath("../HealthComponent")

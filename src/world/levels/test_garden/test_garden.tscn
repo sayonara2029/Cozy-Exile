@@ -1,60 +1,61 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://src/world/props/bush.tscn" id="1_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/rock_placeholder.tscn" id="2_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/rock_mossy.tscn" id="3_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/house_placeholder.tscn" id="4_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/lantern_placeholder.tscn" id="5_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/mushroom_cluster.tscn" id="6_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/barrel.tscn" id="7_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/crate.tscn" id="8_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/signpost.tscn" id="9_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/bench.tscn" id="10_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/crystal_cluster.tscn" id="11_r"]
-[ext_resource type="PackedScene" path="res://src/world/props/standing_stone.tscn" id="12_r"]
-[ext_resource type="Environment" path="res://src/world/environment/cozy_environment.tres" id="13_r"]
-[ext_resource type="Script" path="res://src/world/tools/multimesh_scatter.gd" id="14_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_grass.tres" id="15_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_grass_far.tres" id="16_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_hill.tres" id="17_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_path.tres" id="18_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_water.tres" id="19_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood.tres" id="20_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_stone_dark.tres" id="21_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_blossom.tres" id="22_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_scatter_tint.tres" id="23_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_trunk.tres" id="24_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_lily.tres" id="25_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_reed.tres" id="26_r"]
-[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="27_r"]
-[ext_resource type="PackedScene" path="res://src/enemies/slime/slime.tscn" id="28_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_leaf.tres" id="29_r"]
-[ext_resource type="Material" path="res://assets/materials/placeholder/mat_pine.tres" id="30_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/house_placeholder.tscn" id="2_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/lantern_placeholder.tscn" id="3_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/mushroom_cluster.tscn" id="4_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/barrel.tscn" id="5_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/crate.tscn" id="6_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/signpost.tscn" id="7_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/bench.tscn" id="8_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/crystal_cluster.tscn" id="9_r"]
+[ext_resource type="PackedScene" path="res://src/world/props/standing_stone.tscn" id="10_r"]
+[ext_resource type="Environment" path="res://src/world/environment/cozy_environment.tres" id="11_r"]
+[ext_resource type="Script" path="res://src/world/tools/multimesh_scatter.gd" id="12_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_grass.tres" id="13_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_grass_far.tres" id="14_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_hill.tres" id="15_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_path.tres" id="16_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_water.tres" id="17_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_wood.tres" id="18_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_stone_dark.tres" id="19_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_blossom.tres" id="20_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_scatter_tint.tres" id="21_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_trunk.tres" id="22_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_lily.tres" id="23_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_reed.tres" id="24_r"]
+[ext_resource type="Script" path="res://src/world/tools/mesh_merger.gd" id="25_r"]
+[ext_resource type="PackedScene" path="res://src/enemies/slime/slime.tscn" id="26_r"]
+[ext_resource type="PackedScene" path="res://src/enemies/sporecap/sporecap.tscn" id="27_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_leaf.tres" id="28_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_pine.tres" id="29_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_rock.tres" id="30_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_moss.tres" id="31_r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ground"]
-material = ExtResource("15_r")
+material = ExtResource("13_r")
 size = Vector3(60.0, 1, 60.0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
 size = Vector3(60.0, 1, 60.0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_outer"]
-material = ExtResource("16_r")
+material = ExtResource("14_r")
 size = Vector3(180, 1, 180)
 
 [sub_resource type="SphereMesh" id="SphereMesh_hill"]
-material = ExtResource("17_r")
+material = ExtResource("15_r")
 radius = 1.0
 height = 2.0
 radial_segments = 10
 rings = 5
 
 [sub_resource type="BoxMesh" id="BoxMesh_path"]
-material = ExtResource("18_r")
+material = ExtResource("16_r")
 size = Vector3(2.4, 0.04, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_pond"]
-material = ExtResource("19_r")
+material = ExtResource("17_r")
 top_radius = 3.5
 bottom_radius = 3.5
 height = 0.04
@@ -62,7 +63,7 @@ radial_segments = 16
 rings = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_pond_rim"]
-material = ExtResource("18_r")
+material = ExtResource("16_r")
 top_radius = 3.9
 bottom_radius = 3.9
 height = 0.03
@@ -77,41 +78,41 @@ radius = 3.4
 size = Vector3(60.0, 4, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fence"]
-material = ExtResource("20_r")
+material = ExtResource("18_r")
 size = Vector3(0.18, 0.8, 0.18)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rail"]
-material = ExtResource("20_r")
+material = ExtResource("18_r")
 size = Vector3(2.0, 0.1, 0.08)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lintel"]
-material = ExtResource("21_r")
+material = ExtResource("19_r")
 size = Vector3(3.2, 0.45, 0.55)
 
 [sub_resource type="SphereMesh" id="SphereMesh_blossom_crown"]
-material = ExtResource("22_r")
+material = ExtResource("20_r")
 radius = 1.0
 height = 1.7
 radial_segments = 8
 rings = 4
 
 [sub_resource type="PrismMesh" id="PrismMesh_tuft"]
-material = ExtResource("23_r")
+material = ExtResource("21_r")
 size = Vector3(0.18, 0.32, 0.12)
 
 [sub_resource type="PrismMesh" id="PrismMesh_blade"]
-material = ExtResource("23_r")
+material = ExtResource("21_r")
 size = Vector3(0.1, 0.55, 0.06)
 
 [sub_resource type="SphereMesh" id="SphereMesh_flower"]
-material = ExtResource("23_r")
+material = ExtResource("21_r")
 radius = 0.09
 height = 0.16
 radial_segments = 5
 rings = 2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tulip"]
-material = ExtResource("23_r")
+material = ExtResource("21_r")
 top_radius = 0.08
 bottom_radius = 0.03
 height = 0.14
@@ -119,14 +120,14 @@ radial_segments = 6
 rings = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_far_crown"]
-material = ExtResource("23_r")
+material = ExtResource("21_r")
 radius = 1.1
 height = 1.9
 radial_segments = 6
 rings = 3
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_far_trunk"]
-material = ExtResource("24_r")
+material = ExtResource("22_r")
 top_radius = 0.18
 bottom_radius = 0.26
 height = 1.4
@@ -134,7 +135,7 @@ radial_segments = 5
 rings = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lily"]
-material = ExtResource("25_r")
+material = ExtResource("23_r")
 top_radius = 0.32
 bottom_radius = 0.32
 height = 0.02
@@ -142,7 +143,7 @@ radial_segments = 8
 rings = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_lotus"]
-material = ExtResource("22_r")
+material = ExtResource("20_r")
 radius = 0.11
 height = 0.14
 radial_segments = 6
@@ -150,7 +151,7 @@ rings = 3
 is_hemisphere = true
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_reed"]
-material = ExtResource("26_r")
+material = ExtResource("24_r")
 top_radius = 0.015
 bottom_radius = 0.035
 height = 0.9
@@ -158,7 +159,7 @@ radial_segments = 4
 rings = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_pebble"]
-material = ExtResource("21_r")
+material = ExtResource("19_r")
 radius = 0.17
 height = 0.14
 radial_segments = 6
@@ -207,7 +208,7 @@ mesh = SubResource("SphereMesh_pebble")
 buffer = PackedFloat32Array(0.8, 0, 0, 3.92056, 0, 0.8, 0, 0.02, 0, 0, 0.8, 0.481384, 0.804347, 0, 0.674927, 3.32344, 0, 1.05, 0, 0.02, -0.674927, 0, 0.804347, 2.13478, 0.225743, 0, 1.28025, 2.06807, 0, 1.3, 0, 0.02, -1.28025, 0, 0.225743, 3.36535, -0.4, 0, 0.69282, 0.403091, 0, 0.8, 0, 0.02, -0.69282, 0, -0.4, 3.92938, -0.986677, 0, 0.359121, -1.34172, 0, 1.05, 0, 0.02, -0.359121, 0, -0.986677, 3.71514, -1.2216, 0, -0.444626, -2.82079, 0, 1.3, 0, 0.02, 0.444626, 0, -1.2216, 2.76508, -0.4, 0, -0.69282, -3.74116, 0, 0.8, 0, 0.02, 0.69282, 0, -0.4, 1.26735, 0.182331, 0, -1.03405, -3.92056, 0, 1.05, 0, 0.02, 1.03405, 0, 0.182331, -0.481384, 0.995858, 0, -0.835624, -3.32344, 0, 1.3, 0, 0.02, 0.835624, 0, 0.995858, -2.13478, 0.8, 0, 0, -2.06807, 0, 0.8, 0, 0.02, 0, 0, 0.8, -3.36535, 0.804347, 0, 0.674927, -0.403091, 0, 1.05, 0, 0.02, -0.674927, 0, 0.804347, -3.92938, 0.225743, 0, 1.28025, 1.34172, 0, 1.3, 0, 0.02, -1.28025, 0, 0.225743, -3.71514, -0.4, 0, 0.69282, 2.82079, 0, 0.8, 0, 0.02, -0.69282, 0, -0.4, -2.76508, -0.986677, 0, 0.359121, 3.74116, 0, 1.05, 0, 0.02, -0.359121, 0, -0.986677, -1.26735)
 
 [sub_resource type="CylinderMesh" id="Tree_trunk"]
-material = ExtResource("24_r")
+material = ExtResource("22_r")
 top_radius = 0.18
 bottom_radius = 0.26
 height = 1.4
@@ -215,21 +216,21 @@ radial_segments = 6
 rings = 1
 
 [sub_resource type="SphereMesh" id="Tree_crown"]
-material = ExtResource("29_r")
+material = ExtResource("28_r")
 radius = 1.1
 height = 1.9
 radial_segments = 8
 rings = 4
 
 [sub_resource type="SphereMesh" id="Tree_top"]
-material = ExtResource("29_r")
+material = ExtResource("28_r")
 radius = 0.7
 height = 1.2
 radial_segments = 7
 rings = 4
 
 [sub_resource type="CylinderMesh" id="Pine_trunk"]
-material = ExtResource("24_r")
+material = ExtResource("22_r")
 top_radius = 0.14
 bottom_radius = 0.2
 height = 0.9
@@ -237,7 +238,7 @@ radial_segments = 6
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier0"]
-material = ExtResource("30_r")
+material = ExtResource("29_r")
 top_radius = 0.0
 bottom_radius = 1.0
 height = 1.3
@@ -245,7 +246,7 @@ radial_segments = 7
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier1"]
-material = ExtResource("30_r")
+material = ExtResource("29_r")
 top_radius = 0.0
 bottom_radius = 0.78
 height = 1.1
@@ -253,7 +254,7 @@ radial_segments = 7
 rings = 1
 
 [sub_resource type="CylinderMesh" id="Pine_tier2"]
-material = ExtResource("30_r")
+material = ExtResource("29_r")
 top_radius = 0.0
 bottom_radius = 0.52
 height = 0.9
@@ -312,10 +313,56 @@ buffer = PackedFloat32Array(0.707066, 0, 0.842649, -23, 0, 1.1, 0, 2.97, -0.8426
 height = 2.0
 radius = 0.38
 
+[sub_resource type="SphereMesh" id="Rock_mesh"]
+material = ExtResource("30_r")
+radius = 0.6
+height = 0.8
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="MossyRock_mesh"]
+material = ExtResource("19_r")
+radius = 0.75
+height = 1.0
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="Moss_mesh"]
+material = ExtResource("31_r")
+radius = 0.6
+height = 0.5
+radial_segments = 6
+rings = 3
+is_hemisphere = true
+
+[sub_resource type="MultiMesh" id="MultiMesh_RockMeshes"]
+transform_format = 1
+instance_count = 12
+mesh = SubResource("Rock_mesh")
+buffer = PackedFloat32Array(1.125, 0, 0, -8.5, 0, 0.9, 0, 0.18, 0, 0, 0.9, 0.2, 1.19795, 0, 0.722178, -15, 0, 1.2, 0, 0.24, -0.902723, 0, 0.958363, 5.5, 0.241183, 0, 0.672883, -10, 0, 0.7, 0, 0.14, -0.841104, 0, 0.192946, 6.5, -0.358368, 0, 0.746864, 5, 0, 0.8, 0, 0.16, -0.93358, 0, -0.286694, 3, -1.48408, 0, 0.741887, 13, 0, 1.4, 0, 0.28, -0.927359, 0, -1.18727, -2, -1.36977, 0, -0.0958713, -4, 0, 1.1, 0, 0.22, 0.119839, 0, -1.09581, -14, -0.836038, 0, -0.602218, 18, 0, 0.9, 0, 0.18, 0.752772, 0, -0.66883, 8, -0.357767, 0, -1.47244, -20, 0, 1.5, 0, 0.3, 1.84055, 0, -0.286213, 6, 0.547964, 0, -0.898794, 2, 0, 1, 0, 0.2, 1.12349, 0, 0.438371, 18, 0.668255, 0, -0.272394, 14.5, 0, 0.6, 0, 0.12, 0.340493, 0, 0.534604, 13.2, 0.861707, 0, 0.121554, -13.5, 0, 0.7, 0, 0.14, -0.151942, 0, 0.689365, -12.2, 0.681998, 0, 0.585083, 7.5, 0, 0.8, 0, 0.16, -0.731354, 0, 0.545599, -15.5)
+
+[sub_resource type="MultiMesh" id="MultiMesh_MossyRockMeshes"]
+transform_format = 1
+instance_count = 5
+mesh = SubResource("MossyRock_mesh")
+buffer = PackedFloat32Array(1.2, 0, 0, -17.5, 0, 1, 0, 0.3, 0, 0, 1, -9.5, 0.866614, 0, 0.958363, 13.5, 0, 1.2, 0, 0.36, -1.15004, 0, 0.722178, -17, -0.297688, 0, 0.865136, -3, 0, 0.9, 0, 0.27, -1.03816, 0, -0.248074, 16.5, -1.23233, 0, 0.394205, 21, 0, 1.1, 0, 0.33, -0.473046, 0, -1.02694, 5.5, -1.32296, 0, -0.688895, -22, 0, 1.3, 0, 0.39, 0.826674, 0, -1.10246, -19)
+
+[sub_resource type="MultiMesh" id="MultiMesh_MossCaps"]
+transform_format = 1
+instance_count = 5
+mesh = SubResource("Moss_mesh")
+buffer = PackedFloat32Array(1.15, 0, 0, -17.45, 0, 0.55, 0, 0.62, 0, 0, 0.95, -9.5, 0.830505, 0, 0.910444, 13.5361, 0, 0.66, 0, 0.744, -1.10212, 0, 0.686069, -17.0479, -0.285285, 0, 0.821879, -3.0124, 0, 0.495, 0, 0.558, -0.994906, 0, -0.23567, 16.4567, -1.18098, 0, 0.374495, 20.9487, 0, 0.605, 0, 0.682, -0.453335, 0, -0.975592, 5.48029, -1.26783, 0, -0.65445, -22.0551, 0, 0.715, 0, 0.806, 0.792229, 0, -1.04734, -18.9656)
+
+[sub_resource type="SphereShape3D" id="Rock_shape"]
+radius = 0.55
+
+[sub_resource type="SphereShape3D" id="MossyRock_shape"]
+radius = 0.7
+
 [node name="TestGarden" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("13_r")
+environment = ExtResource("11_r")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.766044, -0.430109, 0.477684, 0, 0.743145, 0.669131, -0.642788, -0.512584, 0.569282, 0, 12, 0)
@@ -373,7 +420,7 @@ cast_shadow = 0
 multimesh = SubResource("MultiMesh_hills")
 
 [node name="TreeRingTrunks" type="MultiMeshInstance3D" parent="Background"]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_far_trunk")
 y_offset = 0.7
@@ -384,7 +431,7 @@ random_seed = 3
 scale_range = Vector2(0.9, 1.7)
 
 [node name="TreeRingCrowns" type="MultiMeshInstance3D" parent="Background"]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 cast_shadow = 0
 mesh = SubResource("SphereMesh_far_crown")
 y_offset = 2.1
@@ -439,7 +486,7 @@ multimesh = SubResource("MultiMesh_reeds")
 cast_shadow = 0
 multimesh = SubResource("MultiMesh_rimstones")
 
-[node name="House" parent="." instance=ExtResource("4_r")]
+[node name="House" parent="." instance=ExtResource("2_r")]
 transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 9, 0, -13)
 
 [node name="Fence" type="Node3D" parent="."]
@@ -472,48 +519,48 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_rail")
 
 [node name="MeshMerger" type="Node" parent="Fence"]
-script = ExtResource("27_r")
+script = ExtResource("25_r")
 merged_prefix = "FenceMesh"
 
 [node name="Props" type="Node3D" parent="."]
 
-[node name="Barrel0" parent="Props" instance=ExtResource("7_r")]
+[node name="Barrel0" parent="Props" instance=ExtResource("5_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2, 0, -10.4)
 
-[node name="Barrel1" parent="Props" instance=ExtResource("7_r")]
+[node name="Barrel1" parent="Props" instance=ExtResource("5_r")]
 transform = Transform3D(0.779423, 0, 0.45, 0, 0.9, 0, -0.45, 0, 0.779423, 12.9, 0, -11.3)
 
-[node name="Crate0" parent="Props" instance=ExtResource("8_r")]
+[node name="Crate0" parent="Props" instance=ExtResource("6_r")]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 5.6, 0, -11.6)
 
-[node name="Crate1" parent="Props" instance=ExtResource("8_r")]
+[node name="Crate1" parent="Props" instance=ExtResource("6_r")]
 transform = Transform3D(0.612836, 0, 0.51423, 0, 0.8, 0, -0.51423, 0, 0.612836, 5.9, 0.7, -11.5)
 
-[node name="Crate2" parent="Props" instance=ExtResource("8_r")]
+[node name="Crate2" parent="Props" instance=ExtResource("6_r")]
 transform = Transform3D(0.886327, 0, -0.156283, 0, 0.9, 0, 0.156283, 0, 0.886327, 6.5, 0, -12.4)
 
-[node name="Signpost" parent="Props" instance=ExtResource("9_r")]
+[node name="Signpost" parent="Props" instance=ExtResource("7_r")]
 transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 3.4, 0, -1.6)
 
-[node name="BenchPond" parent="Props" instance=ExtResource("10_r")]
+[node name="BenchPond" parent="Props" instance=ExtResource("8_r")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -15.6, 0, -1.4)
 
-[node name="Mushrooms0" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms0" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -9)
 
-[node name="Mushrooms1" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms1" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(0.771345, 0, 0.919253, 0, 1.2, 0, -0.919253, 0, 0.771345, -16.5, 0, -6.5)
 
-[node name="Mushrooms2" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms2" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 3.5, 0, -15)
 
-[node name="Mushrooms3" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms3" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(-0.845723, 0, -0.307818, 0, 0.9, 0, 0.307818, 0, -0.845723, 13, 0, 6.5)
 
-[node name="Mushrooms4" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms4" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(0.191013, 0, 1.08329, 0, 1.1, 0, -1.08329, 0, 0.191013, -7, 0, 13)
 
-[node name="Mushrooms5" parent="Props" instance=ExtResource("6_r")]
+[node name="Mushrooms5" parent="Props" instance=ExtResource("4_r")]
 transform = Transform3D(1.28025, 0, 0.225743, 0, 1.3, 0, -0.225743, 0, 1.28025, -19.5, 0, -17.5)
 
 [node name="Bush0" parent="Props" instance=ExtResource("1_r")]
@@ -540,43 +587,43 @@ transform = Transform3D(0.376222, 0, 1.03366, 0, 1.1, 0, -1.03366, 0, 0.376222, 
 [node name="Bush7" parent="Props" instance=ExtResource("1_r")]
 transform = Transform3D(0.869333, 0, 0.232937, 0, 0.9, 0, -0.232937, 0, 0.869333, 4.5, 0, 10.5)
 
-[node name="CrystalShrine" parent="Props" instance=ExtResource("11_r")]
+[node name="CrystalShrine" parent="Props" instance=ExtResource("9_r")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -16, 0, -15)
 
-[node name="CrystalArch" parent="Props" instance=ExtResource("11_r")]
+[node name="CrystalArch" parent="Props" instance=ExtResource("9_r")]
 transform = Transform3D(0.536231, 0, 0.449951, 0, 0.7, 0, -0.449951, 0, 0.536231, 17.4, 0, 12.6)
 
-[node name="CrystalPond" parent="Props" instance=ExtResource("11_r")]
+[node name="CrystalPond" parent="Props" instance=ExtResource("9_r")]
 transform = Transform3D(0.104189, 0, 0.590885, 0, 0.6, 0, -0.590885, 0, 0.104189, -16.4, 0, 6.2)
 
 [node name="StoneCircle" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -15)
 
-[node name="Stone0" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone0" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(-0.821037, 0, -0.219996, 0, 0.85, 0, 0.219996, 0, -0.821037, 0.879985, 0, 3.28415)
 
-[node name="Stone1" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone1" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 3.28415, 0, 0.879985)
 
-[node name="Stone2" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone2" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(0.601041, 0, -0.601041, 0, 0.85, 0, 0.601041, 0, 0.601041, 2.40416, 0, -2.40416)
 
-[node name="Stone3" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone3" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.879985, 0, -3.28415)
 
-[node name="Stone4" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone4" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(0.219996, 0, 0.821037, 0, 0.85, 0, -0.821037, 0, 0.219996, -3.28415, 0, -0.879985)
 
-[node name="Stone5" parent="StoneCircle" instance=ExtResource("12_r")]
+[node name="Stone5" parent="StoneCircle" instance=ExtResource("10_r")]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -2.40416, 0, 2.40416)
 
 [node name="Arch" type="Node3D" parent="."]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 16, 0, 15)
 
-[node name="PillarL" parent="Arch" instance=ExtResource("12_r")]
+[node name="PillarL" parent="Arch" instance=ExtResource("10_r")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -1.3, 0, 0)
 
-[node name="PillarR" parent="Arch" instance=ExtResource("12_r")]
+[node name="PillarR" parent="Arch" instance=ExtResource("10_r")]
 transform = Transform3D(-1.2, 0, 0, 0, 1.2, 0, 0, 0, -1.2, 1.3, 0, 0)
 
 [node name="Lintel" type="MeshInstance3D" parent="Arch"]
@@ -585,57 +632,66 @@ mesh = SubResource("BoxMesh_lintel")
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Slime0" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime0" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.447214, 0, 0.894427, 0, 1, 0, -0.894427, 0, -0.447214, 7.2, 0, 0.4)
 
-[node name="Slime1" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime1" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.495051, 0, 0.868864, 0, 1, 0, -0.868864, 0, -0.495051, 8.6, 0, -0.9)
 
-[node name="Slime2" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime2" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.267644, 0, 0.963518, 0, 1, 0, -0.963518, 0, -0.267644, 9, 0, 1.5)
 
-[node name="Slime3" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime3" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.200944, 0, 0.979603, 0, 1, 0, -0.979603, 0, -0.200944, 7.8, 0, 2.4)
 
-[node name="Slime4" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime4" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.987636, 0, 0.156768, 0, 1, 0, -0.156768, 0, -0.987636, 2, 0, -8.6)
 
-[node name="Slime5" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime5" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.967617, 0, 0.252422, 0, 1, 0, -0.252422, 0, -0.967617, 3.6, 0, -9.8)
 
-[node name="Slime6" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime6" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(-0.997663, 0, 0.0683331, 0, 1, 0, -0.0683331, 0, -0.997663, 1, 0, -10.6)
 
-[node name="Slime7" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime7" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(0.98313, 0, 0.182908, 0, 1, 0, -0.182908, 0, 0.98313, 1.6, 0, 12.6)
 
-[node name="Slime8" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime8" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(0.954146, 0, 0.29934, 0, 1, 0, -0.29934, 0, 0.954146, 3.2, 0, 14.2)
 
-[node name="Slime9" parent="Enemies" instance=ExtResource("28_r")]
+[node name="Slime9" parent="Enemies" instance=ExtResource("26_r")]
 transform = Transform3D(0.999829, 0, 0.0185153, 0, 1, 0, -0.0185153, 0, 0.999829, 0.2, 0, 14.8)
+
+[node name="Sporecap0" parent="Enemies" instance=ExtResource("27_r")]
+transform = Transform3D(-0.311308, 0, 0.950309, 0, 1, 0, -0.950309, 0, -0.311308, 11.6, 0, 0.2)
+
+[node name="Sporecap1" parent="Enemies" instance=ExtResource("27_r")]
+transform = Transform3D(-0.987364, 0, 0.158466, 0, 1, 0, -0.158466, 0, -0.987364, 2.6, 0, -12.2)
+
+[node name="Sporecap2" parent="Enemies" instance=ExtResource("27_r")]
+transform = Transform3D(0.98929, 0, -0.145961, 0, 1, 0, 0.145961, 0, 0.98929, -1.8, 0, 16.2)
 
 [node name="Lanterns" type="Node3D" parent="."]
 
-[node name="Lantern0" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern0" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 6)
 
-[node name="Lantern1" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern1" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, 1)
 
-[node name="Lantern2" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern2" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, -4.5)
 
-[node name="Lantern3" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern3" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8, 0, -8.2)
 
-[node name="Lantern4" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern4" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -4.8)
 
-[node name="Lantern5" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern5" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2, 0, -9.6)
 
-[node name="Lantern6" parent="Lanterns" instance=ExtResource("5_r")]
+[node name="Lantern6" parent="Lanterns" instance=ExtResource("3_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6, 0, 0.6)
 
 [node name="Trees" type="Node3D" parent="."]
@@ -809,59 +865,91 @@ shape = SubResource("Tree_shape")
 
 [node name="Rocks" type="Node3D" parent="."]
 
-[node name="Rock0" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -8.5, 0, 0.2)
+[node name="RockMeshes" type="MultiMeshInstance3D" parent="Rocks"]
+cast_shadow = 1
+multimesh = SubResource("MultiMesh_RockMeshes")
 
-[node name="Rock1" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.958363, 0, 0.722178, 0, 1.2, 0, -0.722178, 0, 0.958363, -15, 0, 5.5)
+[node name="MossyRockMeshes" type="MultiMeshInstance3D" parent="Rocks"]
+cast_shadow = 1
+multimesh = SubResource("MultiMesh_MossyRockMeshes")
 
-[node name="Rock2" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.192946, 0, 0.672883, 0, 0.7, 0, -0.672883, 0, 0.192946, -10, 0, 6.5)
+[node name="MossCaps" type="MultiMeshInstance3D" parent="Rocks"]
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_MossCaps")
 
-[node name="Rock3" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(-0.286694, 0, 0.746864, 0, 0.8, 0, -0.746864, 0, -0.286694, 5, 0, 3)
+[node name="RockColliders" type="StaticBody3D" parent="Rocks"]
+collision_mask = 0
 
-[node name="Rock4" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(-1.18727, 0, 0.741887, 0, 1.4, 0, -0.741887, 0, -1.18727, 13, 0, -2)
+[node name="Rock0" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -8.5, 0.18, 0.2)
+shape = SubResource("Rock_shape")
 
-[node name="Rock5" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(-1.09581, 0, -0.0958713, 0, 1.1, 0, 0.0958713, 0, -1.09581, -4, 0, -14)
+[node name="Rock1" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -15, 0.24, 5.5)
+shape = SubResource("Rock_shape")
 
-[node name="Rock6" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(-0.66883, 0, -0.602218, 0, 0.9, 0, 0.602218, 0, -0.66883, 18, 0, 8)
+[node name="Rock2" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -10, 0.14, 6.5)
+shape = SubResource("Rock_shape")
 
-[node name="Rock7" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(-0.286213, 0, -1.47244, 0, 1.5, 0, 1.47244, 0, -0.286213, -20, 0, 6)
+[node name="Rock3" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 5, 0.16, 3)
+shape = SubResource("Rock_shape")
 
-[node name="Rock8" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.438371, 0, -0.898794, 0, 1, 0, 0.898794, 0, 0.438371, 2, 0, 18)
+[node name="Rock4" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 13, 0.28, -2)
+shape = SubResource("Rock_shape")
 
-[node name="Rock9" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.534604, 0, -0.272394, 0, 0.6, 0, 0.272394, 0, 0.534604, 14.5, 0, 13.2)
+[node name="Rock5" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -4, 0.22, -14)
+shape = SubResource("Rock_shape")
 
-[node name="Rock10" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.689365, 0, 0.121554, 0, 0.7, 0, -0.121554, 0, 0.689365, -13.5, 0, -12.2)
+[node name="Rock6" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 18, 0.18, 8)
+shape = SubResource("Rock_shape")
 
-[node name="Rock11" parent="Rocks" instance=ExtResource("2_r")]
-transform = Transform3D(0.545599, 0, 0.585083, 0, 0.8, 0, -0.585083, 0, 0.545599, 7.5, 0, -15.5)
+[node name="Rock7" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -20, 0.3, 6)
+shape = SubResource("Rock_shape")
 
-[node name="MossyRock0" parent="Rocks" instance=ExtResource("3_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -9.5)
+[node name="Rock8" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, 18)
+shape = SubResource("Rock_shape")
 
-[node name="MossyRock1" parent="Rocks" instance=ExtResource("3_r")]
-transform = Transform3D(0.722178, 0, 0.958363, 0, 1.2, 0, -0.958363, 0, 0.722178, 13.5, 0, -17)
+[node name="Rock9" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 14.5, 0.12, 13.2)
+shape = SubResource("Rock_shape")
 
-[node name="MossyRock2" parent="Rocks" instance=ExtResource("3_r")]
-transform = Transform3D(-0.248074, 0, 0.865136, 0, 0.9, 0, -0.865136, 0, -0.248074, -3, 0, 16.5)
+[node name="Rock10" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -13.5, 0.14, -12.2)
+shape = SubResource("Rock_shape")
 
-[node name="MossyRock3" parent="Rocks" instance=ExtResource("3_r")]
-transform = Transform3D(-1.02694, 0, 0.394205, 0, 1.1, 0, -0.394205, 0, -1.02694, 21, 0, 5.5)
+[node name="Rock11" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 7.5, 0.16, -15.5)
+shape = SubResource("Rock_shape")
 
-[node name="MossyRock4" parent="Rocks" instance=ExtResource("3_r")]
-transform = Transform3D(-1.10246, 0, -0.688895, 0, 1.3, 0, 0.688895, 0, -1.10246, -22, 0, -19)
+[node name="MossyRock0" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0.3, -9.5)
+shape = SubResource("MossyRock_shape")
+
+[node name="MossyRock1" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 13.5, 0.36, -17)
+shape = SubResource("MossyRock_shape")
+
+[node name="MossyRock2" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -3, 0.27, 16.5)
+shape = SubResource("MossyRock_shape")
+
+[node name="MossyRock3" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 21, 0.33, 5.5)
+shape = SubResource("MossyRock_shape")
+
+[node name="MossyRock4" type="CollisionShape3D" parent="Rocks/RockColliders"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, -22, 0.39, -19)
+shape = SubResource("MossyRock_shape")
 
 [node name="GrassTufts" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 mesh = SubResource("PrismMesh_tuft")
 count = 900
 area_size = Vector2(56, 56)
@@ -873,7 +961,7 @@ cast_shadow = 0
 exclusion_circles = PackedVector3Array(-12, 4.4, 3, 9, 3.2, -13, -16, 4.2, -15, 16, 2.2, 15, 0, 1.3, 16, 0, 1.3, 14.5, 0, 1.3, 13, 0, 1.3, 11.5, 0, 1.3, 10, 0, 1.3, 10, 0, 1.3, 8.5, 0, 1.3, 7, 0, 1.3, 5.5, 0, 1.3, 4, 0, 1.3, 4, 0.25, 1.3, 2.75, 0.5, 1.3, 1.5, 0.75, 1.3, 0.25, 1, 1.3, -1, 1, 1.3, -1, 1.5, 1.3, -2, 2, 1.3, -3, 2.5, 1.3, -4, 3, 1.3, -5, 3, 1.3, -5, 3.75, 1.3, -5.75, 4.5, 1.3, -6.5, 5.25, 1.3, -7.25, 6, 1.3, -8, 6, 1.3, -8, 6.5, 1.3, -8.5, 7, 1.3, -9, 7.5, 1.3, -9.5, 8, 1.3, -10, 1, 1.3, -1, 0, 1.3, -1.25, -1, 1.3, -1.5, -2, 1.3, -1.75, -3, 1.3, -2, -3, 1.3, -2, -4, 1.3, -1.75, -5, 1.3, -1.5, -6, 1.3, -1.25, -7, 1.3, -1, -7, 1.3, -1, -7.75, 1.3, -0.625, -8.5, 1.3, -0.25, -9.25, 1.3, 0.125, -10, 1.3, 0.5, -7, 1.3, -1, -7.625, 1.3, -2.25, -8.25, 1.3, -3.5, -8.875, 1.3, -4.75, -9.5, 1.3, -6, -9.5, 1.3, -6, -10.25, 1.3, -7.25, -11, 1.3, -8.5, -11.75, 1.3, -9.75, -12.5, 1.3, -11, 3, 1.3, -5, 4.25, 1.3, -4.25, 5.5, 1.3, -3.5, 6.75, 1.3, -2.75, 8, 1.3, -2, 8, 1.3, -2, 9.25, 1.3, -1.25, 10.5, 1.3, -0.5, 11.75, 1.3, 0.25, 13, 1.3, 1, 12.2, 0.9, -10.4, 12.9, 0.81, -11.3, 5.6, 0.9, -11.6, 5.9, 0.72, -11.5, 6.5, 0.81, -12.4, 3.4, 0.9, -1.6, -15.6, 0.9, -1.4, 8.8, 0.9, -4.2, 15.5, 1.08, -9.5, -6.5, 0.9, 9, -18.5, 0.99, 2.5, 19.5, 0.9, -4, -21, 1.17, 11, 10, 0.99, 17.5, 4.5, 0.81, 10.5, -16, 1.08, -15, 17.4, 0.63, 12.6, -16.4, 0.54, 6.2)
 
 [node name="TallGrass" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 mesh = SubResource("PrismMesh_blade")
 count = 450
 area_size = Vector2(58, 58)
@@ -885,7 +973,7 @@ cast_shadow = 0
 exclusion_circles = PackedVector3Array(-12, 4.4, 3, 9, 3.2, -13, -16, 4.2, -15, 16, 2.2, 15, 0, 1.3, 16, 0, 1.3, 14.5, 0, 1.3, 13, 0, 1.3, 11.5, 0, 1.3, 10, 0, 1.3, 10, 0, 1.3, 8.5, 0, 1.3, 7, 0, 1.3, 5.5, 0, 1.3, 4, 0, 1.3, 4, 0.25, 1.3, 2.75, 0.5, 1.3, 1.5, 0.75, 1.3, 0.25, 1, 1.3, -1, 1, 1.3, -1, 1.5, 1.3, -2, 2, 1.3, -3, 2.5, 1.3, -4, 3, 1.3, -5, 3, 1.3, -5, 3.75, 1.3, -5.75, 4.5, 1.3, -6.5, 5.25, 1.3, -7.25, 6, 1.3, -8, 6, 1.3, -8, 6.5, 1.3, -8.5, 7, 1.3, -9, 7.5, 1.3, -9.5, 8, 1.3, -10, 1, 1.3, -1, 0, 1.3, -1.25, -1, 1.3, -1.5, -2, 1.3, -1.75, -3, 1.3, -2, -3, 1.3, -2, -4, 1.3, -1.75, -5, 1.3, -1.5, -6, 1.3, -1.25, -7, 1.3, -1, -7, 1.3, -1, -7.75, 1.3, -0.625, -8.5, 1.3, -0.25, -9.25, 1.3, 0.125, -10, 1.3, 0.5, -7, 1.3, -1, -7.625, 1.3, -2.25, -8.25, 1.3, -3.5, -8.875, 1.3, -4.75, -9.5, 1.3, -6, -9.5, 1.3, -6, -10.25, 1.3, -7.25, -11, 1.3, -8.5, -11.75, 1.3, -9.75, -12.5, 1.3, -11, 3, 1.3, -5, 4.25, 1.3, -4.25, 5.5, 1.3, -3.5, 6.75, 1.3, -2.75, 8, 1.3, -2, 8, 1.3, -2, 9.25, 1.3, -1.25, 10.5, 1.3, -0.5, 11.75, 1.3, 0.25, 13, 1.3, 1, 12.2, 0.9, -10.4, 12.9, 0.81, -11.3, 5.6, 0.9, -11.6, 5.9, 0.72, -11.5, 6.5, 0.81, -12.4, 3.4, 0.9, -1.6, -15.6, 0.9, -1.4, 8.8, 0.9, -4.2, 15.5, 1.08, -9.5, -6.5, 0.9, 9, -18.5, 0.99, 2.5, 19.5, 0.9, -4, -21, 1.17, 11, 10, 0.99, 17.5, 4.5, 0.81, 10.5, -16, 1.08, -15, 17.4, 0.63, 12.6, -16.4, 0.54, 6.2)
 
 [node name="Flowers" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 mesh = SubResource("SphereMesh_flower")
 count = 450
 area_size = Vector2(50, 50)
@@ -897,7 +985,7 @@ cast_shadow = 0
 exclusion_circles = PackedVector3Array(-12, 4.4, 3, 9, 3.2, -13, -16, 4.2, -15, 16, 2.2, 15, 0, 1.3, 16, 0, 1.3, 14.5, 0, 1.3, 13, 0, 1.3, 11.5, 0, 1.3, 10, 0, 1.3, 10, 0, 1.3, 8.5, 0, 1.3, 7, 0, 1.3, 5.5, 0, 1.3, 4, 0, 1.3, 4, 0.25, 1.3, 2.75, 0.5, 1.3, 1.5, 0.75, 1.3, 0.25, 1, 1.3, -1, 1, 1.3, -1, 1.5, 1.3, -2, 2, 1.3, -3, 2.5, 1.3, -4, 3, 1.3, -5, 3, 1.3, -5, 3.75, 1.3, -5.75, 4.5, 1.3, -6.5, 5.25, 1.3, -7.25, 6, 1.3, -8, 6, 1.3, -8, 6.5, 1.3, -8.5, 7, 1.3, -9, 7.5, 1.3, -9.5, 8, 1.3, -10, 1, 1.3, -1, 0, 1.3, -1.25, -1, 1.3, -1.5, -2, 1.3, -1.75, -3, 1.3, -2, -3, 1.3, -2, -4, 1.3, -1.75, -5, 1.3, -1.5, -6, 1.3, -1.25, -7, 1.3, -1, -7, 1.3, -1, -7.75, 1.3, -0.625, -8.5, 1.3, -0.25, -9.25, 1.3, 0.125, -10, 1.3, 0.5, -7, 1.3, -1, -7.625, 1.3, -2.25, -8.25, 1.3, -3.5, -8.875, 1.3, -4.75, -9.5, 1.3, -6, -9.5, 1.3, -6, -10.25, 1.3, -7.25, -11, 1.3, -8.5, -11.75, 1.3, -9.75, -12.5, 1.3, -11, 3, 1.3, -5, 4.25, 1.3, -4.25, 5.5, 1.3, -3.5, 6.75, 1.3, -2.75, 8, 1.3, -2, 8, 1.3, -2, 9.25, 1.3, -1.25, 10.5, 1.3, -0.5, 11.75, 1.3, 0.25, 13, 1.3, 1, 12.2, 0.9, -10.4, 12.9, 0.81, -11.3, 5.6, 0.9, -11.6, 5.9, 0.72, -11.5, 6.5, 0.81, -12.4, 3.4, 0.9, -1.6, -15.6, 0.9, -1.4, 8.8, 0.9, -4.2, 15.5, 1.08, -9.5, -6.5, 0.9, 9, -18.5, 0.99, 2.5, 19.5, 0.9, -4, -21, 1.17, 11, 10, 0.99, 17.5, 4.5, 0.81, 10.5, -16, 1.08, -15, 17.4, 0.63, 12.6, -16.4, 0.54, 6.2)
 
 [node name="Tulips" type="MultiMeshInstance3D" parent="."]
-script = ExtResource("14_r")
+script = ExtResource("12_r")
 mesh = SubResource("CylinderMesh_tulip")
 count = 300
 area_size = Vector2(44, 44)

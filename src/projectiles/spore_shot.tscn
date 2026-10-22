@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/projectiles/projectile.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://src/vfx/impact_puff/impact_puff.tscn" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/placeholder/mat_magic_bolt.tres" id="3_r"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_spore"]
+material = ExtResource("3_r")
+radius = 0.17
+height = 0.34
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_spore"]
+radius = 0.2
+
+[node name="SporeShot" type="Area3D"]
+script = ExtResource("1_r")
+collision_layer = 16
+collision_mask = 257
+monitorable = false
+impact_scene = ExtResource("2_r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_spore")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_spore")

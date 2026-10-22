@@ -3,10 +3,30 @@
 Cute, cozy, stylized low-poly **3D isometric Action RPG** สำหรับ Windows PC
 Single-player, offline · Godot 4.7 · GDScript · Compatibility renderer
 
-> สถานะ: **M06 — Combat Performance + Readability** (M05: skills, M04: enemy AI)
+> สถานะ: **M07 — Ranged Enemy + Combat Validation** (M06: perf/readability, M05: skills, M04: enemy AI)
 > ยังไม่มี loot, XP, inventory, equipment, skill tree/modifier/evolution ฯลฯ
 >
 > Art rules: [`docs/ART_DIRECTION.md`](docs/ART_DIRECTION.md)
+
+## M07 — Ranged enemy (Sporecap)
+
+- **Sporecap** (`src/enemies/sporecap/`): เห็ดหมวกชมพูม่วง จุดเหลือง ตาเล็กที่โคนก้าน — 3 ตัว อยู่หลังกลุ่ม slime แต่ละกลุ่ม
+- AI (`RangedEnemyBrain` ต่อจาก `EnemyBrain`): IDLE → เห็นผู้เล่นใน 9 m → รักษาระยะ ~6 m (เดินเข้า/ถอยด้วย hysteresis,
+  ไม่ส่าย) → **telegraph 0.6 s** (หมวกเปลี่ยนเป็นสีแดงอมชมพู, ยืนนิ่ง) → ยิง **Spore Shot** ไปยังตำแหน่งผู้เล่น *ตอนจบ telegraph*
+  → recovery 0.45 s → ปรับตำแหน่ง/วนซ้ำ (cooldown 2.4 s จาก SkillData) — เดินหลบด้านข้างหลังเห็นการยิงก็หลบได้
+- ยิงผ่าน `SkillController` + `SkillData` (`spore_shot.tres`: ดาเมจ 7, ช้า 8 m/s, สีส้ม) + `Projectile` เดิมทั้งหมด
+- **Faction ชัดเจนบน SkillController**: `projectile_layer` + `projectile_mask`
+  (ผู้เล่น: layer 4 / mask world+8, ศัตรู: layer 5 / mask world+9) → ลูกศัตรูโดนเฉพาะผู้เล่น, ลูกผู้เล่นโดนเฉพาะศัตรู
+- หินใน Test Garden เป็น MultiMesh แล้ว (3 draw call + collider รวม 1 body)
+
+### Sporecap tuning (บน component ของ `sporecap.tscn`)
+
+| ค่า | อยู่ที่ |
+|---|---|
+| HP 24 | HealthComponent |
+| move_speed 2.2 | MovementComponent |
+| detection_range 9, preferred_range 6 ± 1.5, min_attack_range 2.5, telegraph 0.6 s, recovery 0.45 s | EnemyBrain (RangedEnemyBrain) |
+| damage 7, cooldown 2.4 s, speed 8 m/s, lifetime 1.8 s, สี | `src/data/skills/spore_shot.tres` |
 
 ## M06 — Combat performance + readability
 
@@ -119,8 +139,8 @@ CozyExile/
     ├── components/        # ส่วนประกอบที่ reuse ได้ (movement, input, health)
     ├── combat/            # DamageInfo, Hurtbox (i-frames), MeleeAttackComponent
     ├── skills/            # SkillController (casts a SkillData)
-    ├── projectiles/       # Projectile (reusable) + magic_bolt.tscn
-    ├── enemies/           # Enemy (generic glue), EnemyVisual, ai/EnemyBrain, slime/
+    ├── projectiles/       # Projectile (reusable) + magic_bolt.tscn, spore_shot.tscn
+    ├── enemies/           # Enemy (generic glue), EnemyVisual, ai/ (EnemyBrain, RangedEnemyBrain), slime/, sporecap/
     ├── camera/            # ARPG camera rig
     ├── world/
     │   ├── levels/        # 1 โฟลเดอร์ต่อ 1 level
@@ -168,13 +188,15 @@ Player:  Input → player.gd (routes only) → SkillController.try_cast(dir)   [
                                   └ body_entered (world) → impact → free
 Enemy:   EnemyBrain.update() → MovementComponent.move()      (IDLE/CHASE/ATTACK/COOLDOWN)
            → MeleeAttackComponent (wind-up → sphere query on player_hurtboxes → Hurtbox) → HealthComponent
+         RangedEnemyBrain → telegraph → SkillController.try_cast(dir) → Projectile (layer 5, mask world+9) → player Hurtbox
 Reaction: HealthComponent.damaged/died → Enemy/Player glue → EnemyVisual / PlayerVisual / camera shake (main.gd)
 ```
 
 - **DamageInfo** (`RefCounted`): amount, damage_type (enum `MAGIC`; เพิ่ม type ใหม่ต่อท้าย enum ได้เลย),
   source, hit_position, direction — skill modifier / evolution ในอนาคตแก้ข้อมูลนี้ก่อนยิง
 - **ฝ่าย (faction) แยกด้วย physics layer ไม่ใช่โค้ด**: hurtbox ศัตรูอยู่ layer 8, ของผู้เล่น layer 9;
-  projectile ของผู้เล่น mask = world + layer 8 → projectile/attack ตัวเดียวกันใช้กับศัตรูได้แค่เปลี่ยน mask
+  projectile ของผู้เล่น mask = world + layer 8, ของศัตรู mask = world + layer 9 (ตั้งที่ `SkillController.projectile_layer/mask`);
+  Projectile ยังข้าม hurtbox ของผู้ยิงเองเสมอ (`hurtbox.actor == source`)
 - **HealthComponent** ใช้ร่วมกัน player/enemy, กันการตายซ้ำ, มี `heal()` เตรียมไว้
 - ไม่มี CombatManager / EnemyManager / autoload — ทุกอย่างเป็น component + signal; เป้าหมายหาผ่าน group (`player`, `enemies`) + physics layer
 - สกิลในอนาคต: เพิ่ม `.tres` ใหม่ / SkillController ตัวใหม่; modifier/evolution/element/equipment = สร้าง SkillData ที่แก้ค่าแล้วก่อน cast
@@ -210,6 +232,11 @@ Jolt: เปิด `areas_detect_static_bodies` เพื่อให้ project
 **M06** (วัดซ้ำด้วย scenario เดียวกัน): default 168 → **145**, max zoom 232 → **189**,
 combat stress avg 234–240 → **202**, peak 263–264 → **227** (รวม health bar ~+7 แล้ว), primitives ~81k, VRAM 41.4 MB.
 แหล่งที่เหลือ (profiler): เงา 69, slime 43 (รวม bar), props 31, player 30, rocks 20, projectiles 18, lanterns 16
+
+**M07**: หิน → MultiMesh (rocks 19–20 → 5 draw calls): default 145 → 134, max zoom 189 → 173, combat stress avg 202 → 188, peak 227 → 212.
+หลังเพิ่ม Sporecap 3 ตัว: default **137**, zoom 15 m **157**, max zoom **185**; combat stress เดิม avg 193 / peak 227;
+combat stress แบบผสม (slime + sporecap + 22 bolt + 8 spore + damage number) avg **195**, peak **246** — peak มาจาก
+damage number/impact ชั่วคราว (1 draw call ต่อชิ้น)
 | Primitives | ~36–37k | ~73–75k | ~76–80k | ~76–79k |
 | VRAM | 39.5 MB | 39.7 MB | 39.7 MB | 39.9–41.3 MB |
 
@@ -233,6 +260,7 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 ## Current limitations
 
 - M05: สกิลเดียว (Magic Bolt), ช่อง HUD ช่องเดียว; ยังไม่มี mana / ปุ่มสลับสกิล
+- M07: Sporecap ไม่มี line-of-sight check — ยิงใส่ต้นไม้/ตะเกียงที่บังได้ (ลูกหยุดที่สิ่งกีดขวาง); ถอยหลังไม่ดูกำแพง (ไถลตามขอบ)
 - M04: AI ไม่มี pathfinding (เดินตรงเข้าหา, ไถลตามสิ่งกีดขวาง), ไม่กลับจุดเดิมเมื่อเลิกไล่ (M06: กระจายตัวแล้ว)
 - M04: ผู้เล่นตาย = เกิดใหม่อัตโนมัติ (placeholder)
 - M06: MeshMerger ทำงานตอนโหลด (ไม่ใช่ตอน edit) — ใน editor ยังเห็นชิ้นแยกตามเดิม
@@ -249,9 +277,8 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 ## Future work (ยังไม่ทำ — บันทึกไว้)
 
 - Projectile pooling + วาดด้วย MultiMesh เมื่อต้องการลูกเป็นร้อย
-- Enemy ranged attack (SkillController + SkillData เดิม, mask = world + layer 9)
 - Leash กลับจุดเกิด, navmesh เมื่อมี dungeon
-- ลด draw call ต่อ: หินใน Test Garden เป็น MultiMesh (~20 → ~4), ตะเกียง, projectile แบบ MultiMesh เมื่อต้องการ 50+ ลูก
+- ลด draw call ต่อ: ตะเกียง, damage number แบบรวม, projectile แบบ MultiMesh เมื่อต้องการ 50+ ลูก
 - สีตัวเลข damage ตาม damage type, crit
 - หลายสกิล/ปุ่ม, modifier → SkillData ที่ปรับค่าแล้ว, evolution/element → `.tres` ใหม่
 - Resistances ใน HealthComponent (จุดที่เตรียมไว้แล้วใน `take_damage`)
@@ -264,4 +291,5 @@ hit flash ใช้ `material_overlay` ที่ใช้ร่วมกัน (
 - [x] **M04** Combat feel + enemy AI foundation
 - [x] **M05** Skill foundation
 - [x] **M06** Combat performance + readability
-- [ ] M07+ (ยังไม่กำหนด)
+- [x] **M07** Ranged enemy + combat validation
+- [ ] M08+ (ยังไม่กำหนด)
